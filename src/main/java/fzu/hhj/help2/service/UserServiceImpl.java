@@ -1,6 +1,7 @@
 package fzu.hhj.help2.service;
 
 import fzu.hhj.help2.Util.ConstantUtil;
+import fzu.hhj.help2.Util.MailUtil;
 import fzu.hhj.help2.Util.SecurityUtil;
 import fzu.hhj.help2.mapper.UserMapper;
 import fzu.hhj.help2.pojo.User;
@@ -17,6 +18,9 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    MailUtil mailUtil;
+
     @Override
     public Map<String, Object> loginByPassword(Integer id, String password) {
         Map<String, Object> result = new HashMap<>(ConstantUtil.MIN_HASH_MAP_NUM);
@@ -44,5 +48,28 @@ public class UserServiceImpl implements UserService {
             result.put(ConstantUtil.JSON_RETURN_CODE_NAME,ConstantUtil.WRONG_PASSWORD);
         }
         return result;
+    }
+
+    @Override
+    public Map<String, String> sendVerifyCode(String email) {
+        Map<String,String> map = new HashMap<>(ConstantUtil.HASH_MAP_NUM);
+        String subject = "Help2验证邮件";
+        String verifyCode = SecurityUtil.generatorVerifyCode(6);
+        map.put("verifyCode",verifyCode);
+        String content = "您的验证码是<h1>" +
+                verifyCode +
+                "</h1>请在15分钟内完成验证";
+        String result;
+        try {
+            mailUtil.sendMail(email,subject,content);
+        } catch (Exception e) {
+            result = "{\"head\":\"发送失败\",\"body\":\"服务器异常\"}";
+            map.put("result",result);
+            e.printStackTrace();
+            return map;
+        }
+        result = "{\"head\":\"发送成功\",\"body\":\"请进入邮箱查看验证码\"}";
+        map.put("result",result);
+        return map;
     }
 }

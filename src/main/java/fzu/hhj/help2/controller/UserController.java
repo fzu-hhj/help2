@@ -6,6 +6,7 @@ import fzu.hhj.help2.mapper.UserMapper;
 
 import fzu.hhj.help2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,5 +25,9 @@ public class UserController {
         Map<String, Object> result = new HashMap<>(ConstantUtil.MIN_HASH_MAP_NUM);
         result = userService.loginByPassword(id, password);
         return result;
+    }
+
+    public Map<String, Object> logon(@RequestParam String email, @RequestParam String verfy){
+        return null;
     }
 }

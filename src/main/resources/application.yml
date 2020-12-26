@@ -5,8 +5,8 @@ spring:
     password: 123456
 mail:
   transport: smtp
-  host: stmp.qq.com
+  host: smtp.qq.com
   port: 465
-  userName: 2571402106@qq.com
-  password: hhj500235
+  userName: 3274612717@qq.com
+  password: tnaweiqjtiqidahf
   enableSSL: true

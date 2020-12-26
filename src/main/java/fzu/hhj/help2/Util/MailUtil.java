@@ -1,6 +1,7 @@
 package fzu.hhj.help2.Util;
 
 
+import com.sun.mail.util.MailSSLSocketFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +21,8 @@ public class MailUtil {
     private String transport;
     @Value("${mail.host}")
     private String host;
-//    @Value("${mail.port}")
-//    private String prot;
+    @Value("${mail.port}")
+    private String prot;
     @Value("${mail.userName}")
     private String userName;
     @Value("${mail.password}")
@@ -45,7 +46,7 @@ public class MailUtil {
         // 指定验证为true
         props.setProperty("mail.smtp.auth", "true");
         //发送端口
-        props.setProperty("mail.smtp.port", "465");
+        props.setProperty("mail.smtp.port", prot);
         //启用SSL
         props.setProperty("mail.smtp.ssl.enable", enableSSL);
         //启用调试
