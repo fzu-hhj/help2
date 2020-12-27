@@ -10,3 +10,6 @@ mail:
   userName: 3274612717@qq.com
   password: tnaweiqjtiqidahf
   enableSSL: true
+server:
+  servlet:
+    context-path: /Help2
