@@ -47,6 +47,9 @@ public class UserDAO {
     public User selectUserByName(String name){
         Example example =new Example(User.class);
         example.createCriteria().andEqualTo("name", name);
+        if(userMapper.selectByExample(example).isEmpty()){
+            return null;
+        }
         return userMapper.selectByExample(example).get(0);
     }
 
@@ -58,6 +61,9 @@ public class UserDAO {
     public User selectUserByEmail(String email){
         Example example =new Example(User.class);
         example.createCriteria().andEqualTo("email", email);
+        if(userMapper.selectByExample(example).isEmpty()){
+            return null;
+        }
         return userMapper.selectByExample(example).get(0);
     }
 }

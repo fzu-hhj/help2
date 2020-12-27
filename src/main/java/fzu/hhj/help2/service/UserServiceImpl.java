@@ -6,6 +6,8 @@ import fzu.hhj.help2.Util.ServletUtil;
 import fzu.hhj.help2.dao.UserDAO;
 import fzu.hhj.help2.mapper.UserMapper;
 import fzu.hhj.help2.pojo.User;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +60,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> logon(String username, String password, String email, String verifyCode) {
+    public Map<String, Object> logon(String username, String password, String email, @NotNull String verifyCode) {
         Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
 
         HttpSession session = ServletUtil.getRequest().getSession();
@@ -127,7 +129,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> loginByEmailVerifyCode(String email, String verifyCode) {
+    public Map<String, Object> loginByEmailVerifyCode(@NotNull String email, String verifyCode) {
         HttpSession session = ServletUtil.getRequest().getSession();
         String sessionEmail = (String)session.getAttribute(EMAIL);
         String sessionVerifyCode = (String)session.getAttribute(VERIFY_CODE);
@@ -159,6 +161,8 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    @NotNull
+    @Contract("_, _, _ -> param2")
     private Map<String, Object> verifyPassword(String password, Map<String, Object> result, User user) {
         if (user != null && (password.equals(user.getPasswd()) ||
                 SecurityUtil.md5Compare(password, user.getPasswd()))) {
