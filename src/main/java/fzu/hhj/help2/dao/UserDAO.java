@@ -49,4 +49,15 @@ public class UserDAO {
         example.createCriteria().andEqualTo("name", name);
         return userMapper.selectByExample(example).get(0);
     }
+
+    /**
+     * 根据邮箱查找用户
+     * @param email 邮箱
+     * @return 用户
+     */
+    public User selectUserByEmail(String email){
+        Example example =new Example(User.class);
+        example.createCriteria().andEqualTo("email", email);
+        return userMapper.selectByExample(example).get(0);
+    }
 }

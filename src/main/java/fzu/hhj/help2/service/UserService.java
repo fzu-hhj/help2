@@ -30,4 +30,20 @@ public interface UserService {
      * @return 结果集
      */
     public Map<String, Object> loginByNamePassword(String name, String password);
+
+    /**
+     * 使用邮箱密码登录
+     * @param email 邮箱
+     * @param password 密码
+     * @return 结果集
+     */
+    public Map<String, Object> loginByEmailPassword(String email, String password);
+
+    /**
+     * 使用邮箱验证码登录
+     * @param email 邮箱
+     * @param verifyCode 验证码
+     * @return 结果集
+     */
+    public Map<String, Object> loginByEmailVerifyCode(String email, String verifyCode);
 }

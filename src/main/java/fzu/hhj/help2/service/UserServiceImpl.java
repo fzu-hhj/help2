@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,54 +36,51 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<String, Object> sendVerifyCode(String email) {
-        Map<String,Object> resultMap = new HashMap<>(HASH_MAP_NUM);
+        Map<String, Object> resultMap = new HashMap<>(HASH_MAP_NUM);
         String subject = "Help2验证邮件";
         String verifyCode = SecurityUtil.generatorVerifyCode(6);
-        resultMap.put("verifyCode",verifyCode);
+        resultMap.put("verifyCode", verifyCode);
         String content = "您的验证码是<h1>" +
                 verifyCode +
                 "</h1>请在15分钟内完成验证";
         String result;
         try {
-            mailUtil.sendMail(email,subject,content);
+            mailUtil.sendMail(email, subject, content);
         } catch (Exception e) {
             result = "{\"head\":\"发送失败\",\"body\":\"服务器异常\"}";
-            resultMap.put("result",result);
+            resultMap.put("result", result);
             e.printStackTrace();
             return resultMap;
         }
         result = "{\"head\":\"发送成功\",\"body\":\"请进入邮箱查看验证码\"}";
-        resultMap.put("result",result);
+        resultMap.put("result", result);
         return resultMap;
     }
 
     @Override
     public Map<String, Object> logon(String username, String password, String email, String verifyCode) {
-        Map<String,Object> resultMap = new HashMap<>(MIN_HASH_MAP_NUM);
+        Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
 
         HttpSession session = ServletUtil.getRequest().getSession();
-
         String sessionVerifyCode = (String) session.getAttribute(VERIFY_CODE);
-        String sessionEmail = (String)session.getAttribute(EMAIL);
+        String sessionEmail = (String) session.getAttribute(EMAIL);
         session.setAttribute(VERIFY_CODE, null);
         session.setAttribute(EMAIL, null);
 
         if (!verifyCode.equals(sessionVerifyCode)) {
-            resultMap.put("response", LOGON_WRONG_VERIFY_CODE);
-            return resultMap;
+            result.put(JSON_RETURN_CODE_NAME, LOGON_WRONG_VERIFY_CODE);
+            return result;
         } else if (!email.equals(sessionEmail)) {
-            resultMap.put("response", LOGON_WRONG_EMAIL);
-            return resultMap;
+            result.put(JSON_RETURN_CODE_NAME, LOGON_WRONG_EMAIL);
+            return result;
         }
-
-
         User user = new User();
         if (userDAO.hasUserName(username)) {
-            resultMap.put("response", LOGON_EXIST_USERNAME);
+            result.put(JSON_RETURN_CODE_NAME, LOGON_EXIST_USERNAME);
         }
         if (userDAO.hasUserEmail(email)) {
-            resultMap.put("response",LOGON_EXIST_EMAIL);
-            return resultMap;
+            result.put(JSON_RETURN_CODE_NAME, LOGON_EXIST_EMAIL);
+            return result;
         }
         user.setName(username);
         //使用md5加密
@@ -110,10 +106,10 @@ public class UserServiceImpl implements UserService {
 //        user.setReportedTimes(0);
         userMapper.insertSelective(user);
 
-        resultMap.put("response", SUCCESS);
-        session.setAttribute(LOGIN_USER_SESSION_NAME,user);
+        result.put(JSON_RETURN_CODE_NAME, SUCCESS);
+        ServletUtil.getRequest().getSession().setAttribute(LOGIN_USER_SESSION_NAME, user);
 
-        return resultMap;
+        return result;
     }
 
     @Override
@@ -123,11 +119,49 @@ public class UserServiceImpl implements UserService {
         return verifyPassword(password, result, user);
     }
 
+    @Override
+    public Map<String, Object> loginByEmailPassword(String email, String password) {
+        Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
+        User user = userDAO.selectUserByEmail(email);
+        return verifyPassword(password, result, user);
+    }
+
+    @Override
+    public Map<String, Object> loginByEmailVerifyCode(String email, String verifyCode) {
+        HttpSession session = ServletUtil.getRequest().getSession();
+        String sessionEmail = (String)session.getAttribute(EMAIL);
+        String sessionVerifyCode = (String)session.getAttribute(VERIFY_CODE);
+
+        session.setAttribute(VERIFY_CODE, null);
+
+        Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
+        //Map<String,Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
+        if (!email.equals(sessionEmail)) {
+            result.put(JSON_RETURN_CODE_NAME,LOGIN_WRONG_EMAIL);
+        } else if (!verifyCode.equals(sessionVerifyCode)) {
+            result.put(JSON_RETURN_CODE_NAME,LOGIN_WRONG_VERIFY_CODE);
+        } else {
+            User user = userDAO.selectUserByEmail(email);
+            if (user == null) {
+                result.put(JSON_RETURN_CODE_NAME, LOGIN_NO_ELIGIBLE_USER);
+            } else {
+                //判断用户是否处于封禁
+                if (user.getIsSuspend().equals("1")) {
+                result.put(JSON_RETURN_CODE_NAME, JSON_RESULT_CODE_BAN);
+                return result;
+            }
+                result.put(JSON_RETURN_CODE_NAME, 0);
+                session.setAttribute("user", user);
+                result.put("email", user.getEmail());
+                result.put("password", user.getPasswd());
+            }
+        }
+        return result;
+    }
+
     private Map<String, Object> verifyPassword(String password, Map<String, Object> result, User user) {
-        if (user != null && ( password.equals(user.getPasswd()) ||
+        if (user != null && (password.equals(user.getPasswd()) ||
                 SecurityUtil.md5Compare(password, user.getPasswd()))) {
-
-
 
 //            if (user.getUserstateByStateId().getId().equals(userStateUtil.getBanState().getId())) {
 //                Date now = new Date();
@@ -139,20 +173,20 @@ public class UserServiceImpl implements UserService {
 //                }
 //            }
             //判断用户是否处于封禁
-            if(user.getIsSuspend().equals("1")){
+            if (user.getIsSuspend().equals("1")) {
                 result.put(JSON_RETURN_CODE_NAME, JSON_RESULT_CODE_BAN);
-                    return result;
+                return result;
             }
 
             result.put(JSON_RETURN_CODE_NAME, SUCCESS);
             result.put("email", user.getEmail());
             result.put("password", user.getPasswd());
-            HttpServletRequest request= ServletUtil.getRequest();
-            request.getSession().setAttribute("user",user);
-        }
-        else {
-            result.put(JSON_RETURN_CODE_NAME,WRONG_PASSWORD);
+            HttpServletRequest request = ServletUtil.getRequest();
+            request.getSession().setAttribute("user", user);
+        } else {
+            result.put(JSON_RETURN_CODE_NAME, WRONG_PASSWORD);
         }
         return result;
     }
 }
+

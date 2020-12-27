@@ -21,16 +21,24 @@ public class UserController {
     UserService userService;
 
     @RequestMapping("/loginByNamePassword")
-    public Map<String, Object> loginByPassword(@RequestParam String name, @RequestParam String password) {
-        Map<String, Object> result = userService.loginByNamePassword(name, password);
-        return result;
+    public Map<String, Object> loginByNamePassword(@RequestParam String name, @RequestParam String password) {
+        return userService.loginByNamePassword(name, password);
+    }
+
+    @RequestMapping("/loginByEmailPassword")
+    public Map<String, Object> loginByEmailPassword(@RequestParam String email, @RequestParam String password){
+        return userService.loginByEmailPassword(email, password);
+    }
+
+    @RequestMapping("/loginByEmailVerifyCode")
+    public Map<String, Object> loginByEmailVerifyCode(@RequestParam String email, @RequestParam String verifyCode){
+        return userService.loginByEmailVerifyCode(email, verifyCode);
     }
 
     @RequestMapping("/logon")
     public Map<String, Object> logon(@RequestParam String email, @RequestParam String verifyCode ,
                                      @RequestParam String username, @RequestParam String password){
-        Map<String,Object> resultMap = userService.logon(username,password,email, verifyCode);
-        return resultMap;
+        return userService.logon(username,password,email, verifyCode);
     }
 
     @RequestMapping("/sendEmail")

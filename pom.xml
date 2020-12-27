@@ -97,6 +97,12 @@
             <artifactId>httpclient</artifactId>
             <version>[4.5.9,)</version>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
         <!--引入支持热部署的依赖-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
