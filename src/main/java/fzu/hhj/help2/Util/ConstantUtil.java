@@ -94,7 +94,7 @@ public class ConstantUtil {
     public final static int LOGON_WRONG_VERIFY_CODE = 3;
     public final static int LOGON_WRONG_EMAIL = 4;
     public final static int LOGON_EXIST_USERNAME = 1;
-    public final static int LOGON_EMAIL_REGISTED = 2;
+    public final static int LOGON_EXIST_EMAIL = 2;
     public final static String LOGIN_USER_SESSION_NAME = "user";
     public final static String RESET_PASSWORD_VERIFY_CODE_SESSION_NAME = "resetPasswordVerifyCode";
     public final static String RESET_PASSWORD_VERIFY_STATE_SESSION_NAME = "resetPasswordVerifyState";

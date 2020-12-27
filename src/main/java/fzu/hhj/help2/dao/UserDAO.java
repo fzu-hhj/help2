@@ -3,7 +3,9 @@ package fzu.hhj.help2.dao;
 import fzu.hhj.help2.mapper.UserMapper;
 import fzu.hhj.help2.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+@Repository("userDAO")
 public class UserDAO {
     @Autowired
     UserMapper userMapper;
@@ -16,10 +18,10 @@ public class UserDAO {
     public boolean hasUserName(String username){
         User user = new User();
         user.setName(username);
-        if(userMapper.select(user) != null){
-            return true;
+        if(userMapper.select(user).isEmpty()){
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**
@@ -30,9 +32,9 @@ public class UserDAO {
     public boolean hasUserEmail(String email){
         User user = new User();
         user.setEmail(email);
-        if(userMapper.select(user) != null){
-            return true;
+        if(userMapper.select(user).isEmpty()){
+            return false;
         }
-        return false;
+        return true;
     }
 }

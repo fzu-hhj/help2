@@ -27,8 +27,11 @@ public class UserController {
         return result;
     }
 
-    public Map<String, Object> logon(@RequestParam String email, @RequestParam String verfy){
-        return null;
+    @RequestMapping("/logon")
+    public Map<String, Object> logon(@RequestParam String email, @RequestParam String verifyCode ,
+                                     @RequestParam String username, @RequestParam String password){
+        Map<String,Object> resultMap = userService.logon(username,password,email, verifyCode);
+        return resultMap;
     }
 
     @RequestMapping("/sendEmail")

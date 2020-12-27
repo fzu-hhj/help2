@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
             resultMap.put("response", LOGON_EXIST_USERNAME);
         }
         if (userDAO.hasUserEmail(email)) {
-            resultMap.put("response",LOGON_EMAIL_REGISTED);
+            resultMap.put("response",LOGON_EXIST_EMAIL);
             return resultMap;
         }
         user.setName(username);
