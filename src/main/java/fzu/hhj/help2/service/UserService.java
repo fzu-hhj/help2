@@ -11,5 +11,5 @@ public interface UserService {
      * @param email 邮箱
      * @return 结果集合
      */
-    public Map<String,String> sendVerifyCode(String email);
+    public Map<String,Object> sendVerifyCode(String email);
 }
