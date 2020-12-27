@@ -20,10 +20,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("/loginByPassword")
-    public Map<String, Object> loginByPassword(@RequestParam Integer id, @RequestParam String password) {
-        Map<String, Object> result = new HashMap<>(ConstantUtil.MIN_HASH_MAP_NUM);
-        result = userService.loginByPassword(id, password);
+    @RequestMapping("/loginByNamePassword")
+    public Map<String, Object> loginByPassword(@RequestParam String name, @RequestParam String password) {
+        Map<String, Object> result = userService.loginByNamePassword(name, password);
         return result;
     }
 

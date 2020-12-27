@@ -22,4 +22,12 @@ public interface UserService {
      * @return 结果集
      */
     public Map<String,Object> logon(String username, String password, String email, String verifyCode);
+
+    /**
+     * 使用用户名密码登录
+     * @param name 用户名
+     * @param password 密码
+     * @return 结果集
+     */
+    public Map<String, Object> loginByNamePassword(String name, String password);
 }

@@ -32,29 +32,7 @@ public class UserServiceImpl implements UserService {
     public Map<String, Object> loginByPassword(Integer id, String password) {
         Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
         User user = userMapper.selectByPrimaryKey(id);
-        if (user != null && ( password.equals(user.getPasswd()) ||
-                SecurityUtil.md5Compare(password, user.getPasswd()))) {
-
-//            //判断用户是否处于封禁
-//            if (user.getUserstateByStateId().getId().equals(userStateUtil.getBanState().getId())) {
-//                Date now = new Date();
-//                if (user.getLastClosureTime().after(now)) {
-//                    result.put(ConstantUtil.JSON_RETURN_CODE_NAME, ConstantUtil.JSON_RESULT_CODE_BAN);
-//                    return result;
-//                } else {
-//                    user.setUserstateByStateId(userStateUtil.getStateByName(Userstate.NORMAL));
-//                }
-//            }
-            result.put(JSON_RETURN_CODE_NAME, SUCCESS);
-            result.put("email", user.getEmail());
-            result.put("password", user.getPasswd());
-            HttpServletRequest request= ServletUtil.getRequest();
-            request.getSession().setAttribute("user",user);
-        }
-        else {
-            result.put(JSON_RETURN_CODE_NAME,WRONG_PASSWORD);
-        }
-        return result;
+        return verifyPassword(password, result, user);
     }
 
     @Override
@@ -136,5 +114,45 @@ public class UserServiceImpl implements UserService {
         session.setAttribute(LOGIN_USER_SESSION_NAME,user);
 
         return resultMap;
+    }
+
+    @Override
+    public Map<String, Object> loginByNamePassword(String name, String password) {
+        Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
+        User user = userDAO.selectUserByName(name);
+        return verifyPassword(password, result, user);
+    }
+
+    private Map<String, Object> verifyPassword(String password, Map<String, Object> result, User user) {
+        if (user != null && ( password.equals(user.getPasswd()) ||
+                SecurityUtil.md5Compare(password, user.getPasswd()))) {
+
+
+
+//            if (user.getUserstateByStateId().getId().equals(userStateUtil.getBanState().getId())) {
+//                Date now = new Date();
+//                if (user.getLastClosureTime().after(now)) {
+//                    result.put(ConstantUtil.JSON_RETURN_CODE_NAME, ConstantUtil.JSON_RESULT_CODE_BAN);
+//                    return result;
+//                } else {
+//                    user.setUserstateByStateId(userStateUtil.getStateByName(Userstate.NORMAL));
+//                }
+//            }
+            //判断用户是否处于封禁
+            if(user.getIsSuspend().equals("1")){
+                result.put(JSON_RETURN_CODE_NAME, JSON_RESULT_CODE_BAN);
+                    return result;
+            }
+
+            result.put(JSON_RETURN_CODE_NAME, SUCCESS);
+            result.put("email", user.getEmail());
+            result.put("password", user.getPasswd());
+            HttpServletRequest request= ServletUtil.getRequest();
+            request.getSession().setAttribute("user",user);
+        }
+        else {
+            result.put(JSON_RETURN_CODE_NAME,WRONG_PASSWORD);
+        }
+        return result;
     }
 }

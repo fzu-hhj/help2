@@ -4,6 +4,7 @@ import fzu.hhj.help2.mapper.UserMapper;
 import fzu.hhj.help2.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import tk.mybatis.mapper.entity.Example;
 
 @Repository("userDAO")
 public class UserDAO {
@@ -16,9 +17,9 @@ public class UserDAO {
      * @return 是否存在，true表示存在，false表示不存在
      */
     public boolean hasUserName(String username){
-        User user = new User();
-        user.setName(username);
-        if(userMapper.select(user).isEmpty()){
+        Example example = new Example(User.class);
+        example.createCriteria().andEqualTo("name",username);
+        if(userMapper.selectByExample(example).isEmpty()){
             return false;
         }
         return true;
@@ -30,11 +31,22 @@ public class UserDAO {
      * @return 是否存在，true表示存在，false表示不存在
      */
     public boolean hasUserEmail(String email){
-        User user = new User();
-        user.setEmail(email);
-        if(userMapper.select(user).isEmpty()){
+        Example example = new Example(User.class);
+        example.createCriteria().andEqualTo("email", email);
+        if(userMapper.selectByExample(example).isEmpty()){
             return false;
         }
         return true;
+    }
+
+    /**
+     * 根据用户名查找用户
+     * @param name 用户名
+     * @return 用户
+     */
+    public User selectUserByName(String name){
+        Example example =new Example(User.class);
+        example.createCriteria().andEqualTo("name", name);
+        return userMapper.selectByExample(example).get(0);
     }
 }
