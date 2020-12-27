@@ -12,8 +12,8 @@ public class User {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "account")
-    private String account;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "passwd")
     private String passwd;
@@ -51,6 +51,9 @@ public class User {
     @Column(name = "suspend_time")
     private LocalDateTime suspendTime;
 
+    @Column(name = "exp")
+    private Integer exp;
+
 
     public int getId() {
         return id;
@@ -61,12 +64,12 @@ public class User {
     }
 
 
-    public String getAccount() {
-        return account;
+    public String getName() {
+        return name;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setName(String name) {
+        this.name = name;
     }
 
 
@@ -177,4 +180,11 @@ public class User {
         this.suspendTime = suspendTime;
     }
 
+    public Integer getExp() {
+        return exp;
+    }
+
+    public void setExp(Integer exp) {
+        this.exp = exp;
+    }
 }

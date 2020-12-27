@@ -27,7 +27,7 @@ public class UserDAO {
      * @param email 邮箱
      * @return 是否存在，true表示存在，false表示不存在
      */
-    public boolean hasEmail(String email){
+    public boolean hasUserEmail(String email){
         User user = new User();
         user.setEmail(email);
         if(userMapper.select(user) != null){
