@@ -1,5 +1,6 @@
 package fzu.hhj.help2.service;
 
+import fzu.hhj.help2.Util.ConstantUtil;
 import fzu.hhj.help2.Util.MailUtil;
 import fzu.hhj.help2.Util.SecurityUtil;
 import fzu.hhj.help2.Util.ServletUtil;
@@ -38,25 +39,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<String, Object> sendVerifyCode(String email) {
-        Map<String, Object> resultMap = new HashMap<>(HASH_MAP_NUM);
+        Map<String, Object> result = new HashMap<>(HASH_MAP_NUM);
         String subject = "Help2验证邮件";
         String verifyCode = SecurityUtil.generatorVerifyCode(6);
-        resultMap.put("verifyCode", verifyCode);
+        result.put("verifyCode", verifyCode);
         String content = "您的验证码是<h1>" +
                 verifyCode +
                 "</h1>请在15分钟内完成验证";
-        String result;
+        String resultString;
         try {
             mailUtil.sendMail(email, subject, content);
         } catch (Exception e) {
-            result = "{\"head\":\"发送失败\",\"body\":\"服务器异常\"}";
-            resultMap.put("result", result);
+            resultString = "{\"head\":\"发送失败\",\"body\":\"服务器异常\"}";
+            result.put("result", resultString);
             e.printStackTrace();
-            return resultMap;
+            return result;
         }
-        result = "{\"head\":\"发送成功\",\"body\":\"请进入邮箱查看验证码\"}";
-        resultMap.put("result", result);
-        return resultMap;
+        resultString = "{\"head\":\"发送成功\",\"body\":\"请进入邮箱查看验证码\"}";
+        HttpSession session = ServletUtil.getRequest().getSession();
+        session.setAttribute(EMAIL, email);
+        session.setAttribute(VERIFY_CODE, verifyCode);
+        result.put("result", resultString);
+        return result;
     }
 
     @Override

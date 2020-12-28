@@ -43,10 +43,6 @@ public class UserController {
 
     @RequestMapping("/sendEmail")
     public Map<String, Object> sendEmail(@RequestParam String email){
-        HttpSession session = ServletUtil.getRequest().getSession();
-        Map<String, Object> resultMap = userService.sendVerifyCode(email);
-        session.setAttribute(ConstantUtil.EMAIL, email);
-        session.setAttribute(ConstantUtil.VERIFY_CODE, resultMap.get(ConstantUtil.VERIFY_CODE));
-        return resultMap;
+        return userService.sendVerifyCode(email);
     }
 }
