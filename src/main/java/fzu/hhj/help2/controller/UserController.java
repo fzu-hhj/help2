@@ -45,9 +45,12 @@ public class UserController {
 
     @RequestMapping("/getUserInf")
     public Map<String, Object> getUserInf(@RequestParam(required = false ) Integer userId){
-        if(userId == null){
-            userId = ((User)ServletUtil.getRequest().getSession().getAttribute("user")).getId();
-        }
         return userService.getUserInf(userId);
+    }
+
+    @RequestMapping("/editUserInf")
+    public Map<String, Object> editUserInf(@RequestParam String userName, @RequestParam String gender,
+                                           @RequestParam String introduction){
+        return userService.editUserInf(userName, gender, introduction);
     }
 }

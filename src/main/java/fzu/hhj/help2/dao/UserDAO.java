@@ -78,4 +78,8 @@ public class UserDAO {
     public void insert(User user){
         userMapper.insertSelective(user);
     }
+
+    public void update(User user){
+        userMapper.updateByPrimaryKeySelective(user);
+    }
 }

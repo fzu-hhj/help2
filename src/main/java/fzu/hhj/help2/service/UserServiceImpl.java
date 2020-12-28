@@ -2,7 +2,6 @@ package fzu.hhj.help2.service;
 
 import fzu.hhj.help2.Util.*;
 import fzu.hhj.help2.dao.*;
-import fzu.hhj.help2.mapper.UserMapper;
 import fzu.hhj.help2.pojo.Message;
 import fzu.hhj.help2.pojo.User;
 import org.jetbrains.annotations.Contract;
@@ -163,6 +162,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<String, Object> getUserInf(Integer userId) {
+        if(userId == null){
+            userId = ((User)ServletUtil.getRequest().getSession().getAttribute("user")).getId();
+        }
         Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
         User user = userDAO.selectUserById(userId);
         if(user == null){
@@ -197,6 +199,31 @@ public class UserServiceImpl implements UserService {
             }
             result.put("userInf", userInf);
         }
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> editUserInf(String userName, String gender, String introduction) {
+        Map<String,Object> result = new HashMap<>(ConstantUtil.MIN_HASH_MAP_NUM);
+        User user = (User)ServletUtil.getRequest().getSession().getAttribute("user");
+        if (user == null) {
+            //未登录和用户名被占用是一样的返回码
+            result.put(JSON_RETURN_CODE_NAME, UN_LOGIN);
+            return result;
+        }
+        if (!userName.equals(user.getName()) && userDAO.hasUserName(userName)) {
+            result.put(JSON_RETURN_CODE_NAME, 1);
+            return result;
+        }
+        if (TextVerifyUtil.verifyCompliance(userName) || TextVerifyUtil.verifyCompliance(introduction)) {
+            result.put(JSON_RETURN_CODE_NAME, JSON_RESULT_CODE_VERIFY_TEXT_FAIL);
+            return result;
+        }
+        user.setGender(gender);
+        user.setName(userName);
+        user.setIntroduction(introduction);
+        userDAO.update(user);
+        result.put(JSON_RETURN_CODE_NAME, SUCCESS);
         return result;
     }
 

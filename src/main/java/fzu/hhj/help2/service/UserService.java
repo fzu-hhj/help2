@@ -53,4 +53,13 @@ public interface UserService {
      * @return 用户信息
      */
     public Map<String, Object> getUserInf(Integer userId);
+
+    /**
+     * 修改用户信息
+     * @param userName 用户名
+     * @param gender 性别
+     * @param introduction 个人介绍
+     * @return 结果集
+     */
+    public Map<String, Object> editUserInf(String userName, String gender, String introduction);
 }
