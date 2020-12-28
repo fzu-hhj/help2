@@ -62,4 +62,12 @@ public interface UserService {
      * @return 结果集
      */
     public Map<String, Object> editUserInf(String userName, String gender, String introduction);
+
+    /**
+     * 修改密码
+     * @param verifyCode 验证码
+     * @param password 新的密码
+     * @return 结果集
+     */
+    public Map<String,Object> resetPassword(String verifyCode, String password);
 }

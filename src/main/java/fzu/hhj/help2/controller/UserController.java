@@ -53,4 +53,9 @@ public class UserController {
                                            @RequestParam String introduction){
         return userService.editUserInf(userName, gender, introduction);
     }
+
+    @RequestMapping("/resetPassword")
+    public Map<String, Object> resetPassword(@RequestParam String verifyCode, @RequestParam String password){
+        return userService.resetPassword(verifyCode, password);
+    }
 }

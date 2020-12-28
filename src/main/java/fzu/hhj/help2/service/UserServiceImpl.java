@@ -140,7 +140,6 @@ public class UserServiceImpl implements UserService {
         session.setAttribute(VERIFY_CODE, null);
 
         Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
-        //Map<String,Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
         if (!email.equals(sessionEmail)) {
             result.put(JSON_RETURN_CODE_NAME,LOGIN_WRONG_EMAIL);
         } else if (!verifyCode.equals(sessionVerifyCode)) {
@@ -227,6 +226,27 @@ public class UserServiceImpl implements UserService {
         user.setGender(gender);
         user.setName(userName);
         user.setIntroduction(introduction);
+        userDAO.update(user);
+        result.put(JSON_RETURN_CODE_NAME, SUCCESS);
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> resetPassword(String verifyCode, String password) {
+        Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
+        HttpSession session = ServletUtil.getRequest().getSession();
+        User user = (User) session.getAttribute("user");
+        String sessionVerifyCode = (String) session.getAttribute(VERIFY_CODE);
+        session.setAttribute(VERIFY_CODE, null);
+        if(user == null){
+            result.put(JSON_RETURN_CODE_NAME, UN_LOGIN);
+            return result;
+        }
+        if(!verifyCode.equals(sessionVerifyCode)){
+            result.put(JSON_RETURN_CODE_NAME,LOGIN_WRONG_VERIFY_CODE);
+            return result;
+        }
+        user.setPasswd(password);
         userDAO.update(user);
         result.put(JSON_RETURN_CODE_NAME, SUCCESS);
         return result;
