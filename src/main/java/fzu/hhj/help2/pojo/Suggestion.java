@@ -1,7 +1,7 @@
 package fzu.hhj.help2.pojo;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "suggestion")
@@ -18,8 +18,11 @@ public class Suggestion {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "score")
+    private Integer score;
+
     @Column(name = "time")
-    private LocalDateTime time;
+    private Date time;
 
 
     public Integer getId() {
@@ -49,11 +52,20 @@ public class Suggestion {
     }
 
 
-    public LocalDateTime getTime() {
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
