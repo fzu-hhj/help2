@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> logon(String username, String password, String email, @NotNull String verifyCode) {
+    public Map<String, Object> logon(String userName, String password, String email, @NotNull String verifyCode) {
         Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
 
         HttpSession session = ServletUtil.getRequest().getSession();
@@ -85,14 +85,18 @@ public class UserServiceImpl implements UserService {
             return result;
         }
         User user = new User();
-        if (userDAO.hasUserName(username)) {
+        if (userDAO.hasUserName(userName)) {
             result.put(JSON_RETURN_CODE_NAME, LOGON_EXIST_USERNAME);
         }
         if (userDAO.hasUserEmail(email)) {
             result.put(JSON_RETURN_CODE_NAME, LOGON_EXIST_EMAIL);
             return result;
         }
-        user.setName(username);
+        if(WordFilterUtil.replaceWords(userName).contains("*")){
+            result.put(JSON_RETURN_CODE_NAME, JSON_RESULT_CODE_VERIFY_TEXT_FAIL);
+            return result;
+        }
+        user.setName(userName);
         //使用md5加密
         user.setPasswd(SecurityUtil.md5(password));
         user.setEmail(email);
