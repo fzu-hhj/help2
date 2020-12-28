@@ -215,7 +215,8 @@ public class UserServiceImpl implements UserService {
             result.put(JSON_RETURN_CODE_NAME, 1);
             return result;
         }
-        if (TextVerifyUtil.verifyCompliance(userName) || TextVerifyUtil.verifyCompliance(introduction)) {
+        if (WordFilterUtil.replaceWords(userName).contains("*") ||
+                WordFilterUtil.replaceWords(introduction).contains("*")) {
             result.put(JSON_RETURN_CODE_NAME, JSON_RESULT_CODE_VERIFY_TEXT_FAIL);
             return result;
         }
