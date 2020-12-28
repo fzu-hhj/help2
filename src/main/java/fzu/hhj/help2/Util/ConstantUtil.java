@@ -127,6 +127,10 @@ public class ConstantUtil {
     public static final Integer RESULT_CODE_PARAMS_ERROR = 2;
 
     //MessageUtil
+    public final static int USER2USER = 0;
+    public final static int SYSTEM_NOTIFICATION = 1;
+    public final static int SYSTEM_REWARD = 2;
+    public final static int SYSTEM_PENALTY = 3;
     public final static int INVITE_USER_TO_ANSWER = 5;
 
     //JsonUtil

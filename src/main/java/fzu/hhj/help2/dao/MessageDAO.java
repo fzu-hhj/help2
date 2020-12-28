@@ -2,6 +2,7 @@ package fzu.hhj.help2.dao;
 
 import fzu.hhj.help2.mapper.MessageMapper;
 import fzu.hhj.help2.pojo.Message;
+import fzu.hhj.help2.pojo.MessageCategory;
 import fzu.hhj.help2.pojo.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,5 +35,9 @@ public class MessageDAO {
         Example example = new Example(Message.class);
         example.createCriteria().andEqualTo("receiverId",userId).andEqualTo("isRead","0");
         return messageMapper.selectByExample(example);
+    }
+
+    public void insert(Message message){
+        messageMapper.insertSelective(message);
     }
 }
