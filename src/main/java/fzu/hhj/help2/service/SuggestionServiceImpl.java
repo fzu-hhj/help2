@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class SuggestionServiceImpl implements SuggestionService {
         suggestion.setUserId(user.getId());
         suggestion.setScore(score);
         suggestion.setContent(content);
-        suggestion.setTime(new Timestamp(System.currentTimeMillis()));
+        suggestion.setTime(new Date());
         suggestionDAO.insert(suggestion);
         result.put(JSON_RETURN_CODE_NAME, SUCCESS);
         return result;
