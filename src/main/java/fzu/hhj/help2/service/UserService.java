@@ -52,7 +52,7 @@ public interface UserService {
      * @param userId 用户id
      * @return 用户信息
      */
-    public Map<String, Object> getUserInf(Integer userId);
+    public Map<String, Object> getSimpleUserInf(Integer userId);
 
     /**
      * 修改用户信息
@@ -76,4 +76,12 @@ public interface UserService {
      * @return 结果集
      */
     public Map<String, Object> logout();
+
+    /**
+     * 获取用户的大部分信息，包括发布的任务，回复
+     * @param userId 用户id
+     * @return 结果集
+     */
+    public Map<String, Object> getAllUserInf(Integer userId);
+
 }

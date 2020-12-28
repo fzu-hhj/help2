@@ -3,6 +3,8 @@ package fzu.hhj.help2.service;
 import fzu.hhj.help2.Util.*;
 import fzu.hhj.help2.dao.*;
 import fzu.hhj.help2.pojo.Message;
+import fzu.hhj.help2.pojo.Reply;
+import fzu.hhj.help2.pojo.Task;
 import fzu.hhj.help2.pojo.User;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +33,8 @@ public class UserServiceImpl implements UserService {
     BadgeGetDAO badgeGetDAO;
     @Autowired
     MessageDAO messageDAO;
+    @Autowired
+    TaskCategoryDAO taskCategoryDAO;
     @Autowired
     MailUtil mailUtil;
 
@@ -164,7 +169,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> getUserInf(Integer userId) {
+    public Map<String, Object> getSimpleUserInf(Integer userId) {
         if(userId == null){
             userId = ((User)ServletUtil.getRequest().getSession().getAttribute("user")).getId();
         }
@@ -258,6 +263,42 @@ public class UserServiceImpl implements UserService {
         HttpSession session = ServletUtil.getRequest().getSession();
         session.invalidate();
         result.put(JSON_RETURN_CODE_NAME, SUCCESS);
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> getAllUserInf(Integer userId) {
+        Map<String, Object> result = getSimpleUserInf(userId);
+        Map<String, Object> userInf = (Map<String, Object>) result.get("userInf");
+        //获取任务列表
+        List<Task> tasks = taskDAO.ListTaskByUserId(userId);
+        List<Map<String, Object>> taskMaps = new ArrayList<>();
+        for(Task task1: tasks){
+            Map<String, Object> taskMap = new HashMap<>(MIN_HASH_MAP_NUM);
+            taskMap.put("id", task1.getId());
+            taskMap.put("Synopsis", task1.getSynopsis());
+            taskMap.put("content", task1.getContent());
+            taskMap.put("category", taskCategoryDAO.selectById(task1.getCategoryId()).getCategory());
+            taskMap.put("time", task1.getTime());
+            taskMap.put("views", task1.getViews());
+            taskMaps.add(taskMap);
+        }
+        userInf.put("tasks", taskMaps);
+        //获取回复列表
+        List<Reply> replies = replyDAO.ListReplyByUserId(userId);
+        List<Map<String, Object>> replyMaps = new ArrayList<>();
+
+        for(Reply reply1: replies){
+            Map<String, Object> replyMap = new HashMap<>(MIN_HASH_MAP_NUM);
+            replyMap.put("id", reply1.getId());
+            replyMap.put("content", reply1.getContent());
+            replyMap.put("likes",reply1.getLikes());
+            replyMap.put("objections", reply1.getObjections());
+            replyMap.put("isAdopted", reply1.getIsAdopted());
+            replyMaps.add(replyMap);
+        }
+        userInf.put("replies", replyMaps);
+        result.put("userInf", userInf);
         return result;
     }
 

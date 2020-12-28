@@ -1,14 +1,11 @@
 package fzu.hhj.help2.controller;
 
-import fzu.hhj.help2.Util.ServletUtil;
-import fzu.hhj.help2.pojo.User;
 import fzu.hhj.help2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @RestController
@@ -43,9 +40,9 @@ public class UserController {
         return userService.sendVerifyCode(email);
     }
 
-    @RequestMapping("/getUserInf")
-    public Map<String, Object> getUserInf(@RequestParam(required = false ) Integer userId){
-        return userService.getUserInf(userId);
+    @RequestMapping("/getSimpleUserInf")
+    public Map<String, Object> getSimpleUserInf(@RequestParam(required = false ) Integer userId){
+        return userService.getSimpleUserInf(userId);
     }
 
     @RequestMapping("/editUserInf")
@@ -57,6 +54,11 @@ public class UserController {
     @RequestMapping("/resetPassword")
     public Map<String, Object> resetPassword(@RequestParam String verifyCode, @RequestParam String password){
         return userService.resetPassword(verifyCode, password);
+    }
+
+    @RequestMapping("/getAllUserInf")
+    public Map<String, Object> getAllUserInf(@RequestParam Integer userId){
+        return userService.getAllUserInf(userId);
     }
 
     @RequestMapping("/logout")
