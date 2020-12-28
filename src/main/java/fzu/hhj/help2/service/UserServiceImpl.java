@@ -74,8 +74,8 @@ public class UserServiceImpl implements UserService {
         HttpSession session = ServletUtil.getRequest().getSession();
         String sessionVerifyCode = (String) session.getAttribute(VERIFY_CODE);
         String sessionEmail = (String) session.getAttribute(EMAIL);
-        session.setAttribute(VERIFY_CODE, null);
-        session.setAttribute(EMAIL, null);
+        session.removeAttribute(VERIFY_CODE);
+        session.removeAttribute(EMAIL);
 
         if (!verifyCode.equals(sessionVerifyCode)) {
             result.put(JSON_RETURN_CODE_NAME, LOGON_WRONG_VERIFY_CODE);
@@ -137,7 +137,7 @@ public class UserServiceImpl implements UserService {
         String sessionEmail = (String)session.getAttribute(EMAIL);
         String sessionVerifyCode = (String)session.getAttribute(VERIFY_CODE);
 
-        session.setAttribute(VERIFY_CODE, null);
+        session.removeAttribute(VERIFY_CODE);
 
         Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
         if (!email.equals(sessionEmail)) {
@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService {
                 result.put(JSON_RETURN_CODE_NAME, JSON_RESULT_CODE_BAN);
                 return result;
             }
-                result.put(JSON_RETURN_CODE_NAME, 0);
+                result.put(JSON_RETURN_CODE_NAME, SUCCESS);
                 session.setAttribute("user", user);
                 result.put("email", user.getEmail());
                 result.put("password", user.getPasswd());
@@ -237,7 +237,7 @@ public class UserServiceImpl implements UserService {
         HttpSession session = ServletUtil.getRequest().getSession();
         User user = (User) session.getAttribute("user");
         String sessionVerifyCode = (String) session.getAttribute(VERIFY_CODE);
-        session.setAttribute(VERIFY_CODE, null);
+        session.removeAttribute(VERIFY_CODE);
         if(user == null){
             result.put(JSON_RETURN_CODE_NAME, UN_LOGIN);
             return result;
@@ -246,8 +246,17 @@ public class UserServiceImpl implements UserService {
             result.put(JSON_RETURN_CODE_NAME,LOGIN_WRONG_VERIFY_CODE);
             return result;
         }
-        user.setPasswd(password);
+        user.setPasswd(SecurityUtil.md5(password));
         userDAO.update(user);
+        result.put(JSON_RETURN_CODE_NAME, SUCCESS);
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> logout() {
+        Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
+        HttpSession session = ServletUtil.getRequest().getSession();
+        session.invalidate();
         result.put(JSON_RETURN_CODE_NAME, SUCCESS);
         return result;
     }

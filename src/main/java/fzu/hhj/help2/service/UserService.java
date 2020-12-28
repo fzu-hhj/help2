@@ -69,5 +69,11 @@ public interface UserService {
      * @param password 新的密码
      * @return 结果集
      */
-    public Map<String,Object> resetPassword(String verifyCode, String password);
+    public Map<String, Object> resetPassword(String verifyCode, String password);
+
+    /**
+     * 退出登录
+     * @return 结果集
+     */
+    public Map<String, Object> logout();
 }

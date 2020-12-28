@@ -58,4 +58,9 @@ public class UserController {
     public Map<String, Object> resetPassword(@RequestParam String verifyCode, @RequestParam String password){
         return userService.resetPassword(verifyCode, password);
     }
+
+    @RequestMapping("/logout")
+    public Map<String, Object> logout(){
+        return userService.logout();
+    }
 }
