@@ -90,14 +90,17 @@ public class ConstantUtil {
 
     //User
     public final static String EMAIL = "email";
-    public final static String VERIFY_CODE = "verifyCode";
+    public final static String VERIFY_CODE = "verifyCode"
+            ;
     public final static int LOGON_WRONG_VERIFY_CODE = 3;
     public final static int LOGON_WRONG_EMAIL = 4;
     public final static int LOGON_EXIST_USERNAME = 1;
     public final static int LOGON_EXIST_EMAIL = 2;
-    public final static int LOGIN_WRONG_EMAIL = 1;
+
+    public final static int LOGIN_WRONG_EMAIL = 4;
     public final static int LOGIN_WRONG_VERIFY_CODE = 2;
     public final static int LOGIN_NO_ELIGIBLE_USER = 3;
+    public final static int LOGIN_WRONG_PASSWORD = 1;
     public final static String LOGIN_USER_SESSION_NAME = "user";
     public final static String RESET_PASSWORD_VERIFY_CODE_SESSION_NAME = "resetPasswordVerifyCode";
     public final static String RESET_PASSWORD_VERIFY_STATE_SESSION_NAME = "resetPasswordVerifyState";

@@ -308,9 +308,14 @@ public class UserServiceImpl implements UserService {
     @NotNull
     @Contract("_, _, _ -> param2")
     private Map<String, Object> verifyPassword(String password, Map<String, Object> result, User user) {
-        if (user != null && (password.equals(user.getPasswd()) ||
-                SecurityUtil.md5Compare(password, user.getPasswd()))) {
-
+        if(user == null){
+            result.put(JSON_RETURN_CODE_NAME, LOGIN_NO_ELIGIBLE_USER);
+        }
+        if(!(password.equals(user.getPasswd()) ||
+                SecurityUtil.md5Compare(password, user.getPasswd()))){
+            result.put(JSON_RETURN_CODE_NAME, LOGIN_WRONG_PASSWORD);
+            return result;
+        }
 //            if (user.getUserstateByStateId().getId().equals(userStateUtil.getBanState().getId())) {
 //                Date now = new Date();
 //                if (user.getLastClosureTime().after(now)) {
@@ -321,19 +326,16 @@ public class UserServiceImpl implements UserService {
 //                }
 //            }
             //判断用户是否处于封禁
-            if (user.getIsSuspend().equals("1")) {
-                result.put(JSON_RETURN_CODE_NAME, JSON_RESULT_CODE_BAN);
-                return result;
-            }
-
-            result.put(JSON_RETURN_CODE_NAME, SUCCESS);
-            result.put("email", user.getEmail());
-            result.put("password", user.getPasswd());
-            HttpServletRequest request = ServletUtil.getRequest();
-            request.getSession().setAttribute("user", user);
-        } else {
-            result.put(JSON_RETURN_CODE_NAME, WRONG_PASSWORD);
+        if (user.getIsSuspend().equals("1")) {
+            result.put(JSON_RETURN_CODE_NAME, JSON_RESULT_CODE_BAN);
+            return result;
         }
+
+        result.put(JSON_RETURN_CODE_NAME, SUCCESS);
+        result.put("email", user.getEmail());
+        result.put("password", user.getPasswd());
+        HttpServletRequest request = ServletUtil.getRequest();
+        request.getSession().setAttribute("user", user);
         return result;
     }
 }
