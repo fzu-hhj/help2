@@ -35,8 +35,11 @@ public class UserServiceImpl implements UserService {
     MessageDAO messageDAO;
     @Autowired
     TaskCategoryDAO taskCategoryDAO;
+
     @Autowired
     MailUtil mailUtil;
+    @Autowired
+    ExpUtil expUtil;
 
 
     @Override
@@ -194,7 +197,7 @@ public class UserServiceImpl implements UserService {
                 userInf.put("classNum", user.getClassNum());
             }
             //TODO 添加等级表和获取经验的工具类
-            userInf.put("level", user.getLevel());
+            userInf.put("level", expUtil.getLevelLabel(user.getExp()));
             userInf.put("taskNum", taskDAO.getNumOfUserPublishTask(userId));
             userInf.put("replyNum", replyDAO.getNumOfUserSendReply(userId));
             userInf.put("badgeNum", badgeGetDAO.getNumOfUserGetBadge(userId));

@@ -42,9 +42,6 @@ public class User {
     @Column(name = "class_num")
     private Integer classNum;
 
-    @Column(name = "level")
-    private Integer level;
-
     @Column(name = "is_suspend")
     private String isSuspend;
 
@@ -151,15 +148,6 @@ public class User {
 
     public void setClassNum(Integer classNum) {
         this.classNum = classNum;
-    }
-
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
     }
 
 

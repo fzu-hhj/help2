@@ -1,7 +1,6 @@
 package fzu.hhj.help2.pojo;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "level")
@@ -16,10 +15,10 @@ public class Level {
     private Integer level;
 
     @Column(name = "expTopLimit")
-    private Integer exptoplimit;
+    private Integer expTopLimit;
 
     @Column(name = "expBotLimit")
-    private Integer expbotlimit;
+    private Integer expBotLimit;
 
 
     public Integer getId() {
@@ -40,21 +39,21 @@ public class Level {
     }
 
 
-    public Integer getExptoplimit() {
-        return exptoplimit;
+    public Integer getExpTopLimit() {
+        return expTopLimit;
     }
 
-    public void setExptoplimit(Integer exptoplimit) {
-        this.exptoplimit = exptoplimit;
+    public void setExpTopLimit(Integer expTopLimit) {
+        this.expTopLimit = expTopLimit;
     }
 
 
-    public Integer getExpbotlimit() {
-        return expbotlimit;
+    public Integer getExpBotLimit() {
+        return expBotLimit;
     }
 
-    public void setExpbotlimit(Integer expbotlimit) {
-        this.expbotlimit = expbotlimit;
+    public void setExpBotLimit(Integer expBotLimit) {
+        this.expBotLimit = expBotLimit;
     }
 
 }
