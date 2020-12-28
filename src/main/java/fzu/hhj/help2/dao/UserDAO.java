@@ -60,4 +60,22 @@ public class UserDAO {
         }
         return userMapper.selectByExample(example).get(0);
     }
+
+    /**
+     * 根据用户id查询用户
+     * @param userId 用户id
+     * @return 用户
+     */
+    public User selectUserById(Integer userId){
+        Example example =new Example(User.class);
+        example.createCriteria().andEqualTo("id", userId);
+        if(userMapper.selectByExample(example).isEmpty()){
+            return null;
+        }
+        return userMapper.selectByExample(example).get(0);
+    }
+
+    public void insert(User user){
+        userMapper.insertSelective(user);
+    }
 }

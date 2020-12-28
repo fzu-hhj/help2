@@ -1,11 +1,14 @@
 package fzu.hhj.help2.controller;
 
+import fzu.hhj.help2.Util.ServletUtil;
+import fzu.hhj.help2.pojo.User;
 import fzu.hhj.help2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @RestController
@@ -38,5 +41,13 @@ public class UserController {
     @RequestMapping("/sendEmail")
     public Map<String, Object> sendEmail(@RequestParam String email){
         return userService.sendVerifyCode(email);
+    }
+
+    @RequestMapping("/getUserInf")
+    public Map<String, Object> getUserInf(@RequestParam(required = false ) Integer userId){
+        if(userId == null){
+            userId = ((User)ServletUtil.getRequest().getSession().getAttribute("user")).getId();
+        }
+        return userService.getUserInf(userId);
     }
 }

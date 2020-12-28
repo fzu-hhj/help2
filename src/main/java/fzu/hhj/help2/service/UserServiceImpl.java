@@ -1,11 +1,9 @@
 package fzu.hhj.help2.service;
 
-import fzu.hhj.help2.Util.ConstantUtil;
-import fzu.hhj.help2.Util.MailUtil;
-import fzu.hhj.help2.Util.SecurityUtil;
-import fzu.hhj.help2.Util.ServletUtil;
-import fzu.hhj.help2.dao.UserDAO;
+import fzu.hhj.help2.Util.*;
+import fzu.hhj.help2.dao.*;
 import fzu.hhj.help2.mapper.UserMapper;
+import fzu.hhj.help2.pojo.Message;
 import fzu.hhj.help2.pojo.User;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -15,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static fzu.hhj.help2.Util.ConstantUtil.*;
@@ -23,9 +22,15 @@ import static fzu.hhj.help2.Util.ConstantUtil.*;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    UserMapper userMapper;
-    @Autowired
     UserDAO userDAO;
+    @Autowired
+    TaskDAO taskDAO;
+    @Autowired
+    ReplyDAO replyDAO;
+    @Autowired
+    BadgeGetDAO badgeGetDAO;
+    @Autowired
+    MessageDAO messageDAO;
     @Autowired
     MailUtil mailUtil;
 
@@ -33,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<String, Object> loginByPassword(Integer id, String password) {
         Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
-        User user = userMapper.selectByPrimaryKey(id);
+        User user = userDAO.selectUserById(id);
         return verifyPassword(password, result, user);
     }
 
@@ -108,9 +113,9 @@ public class UserServiceImpl implements UserService {
         //初始用户状态为正常
 //        user.setUserstateByStateId(userstate);
         //初始头像
-        user.setHead("head.jpg");
+        user.setHead("head1.jpg");
 //        user.setReportedTimes(0);
-        userMapper.insertSelective(user);
+        userDAO.insert(user);
 
         result.put(JSON_RETURN_CODE_NAME, SUCCESS);
         ServletUtil.getRequest().getSession().setAttribute(LOGIN_USER_SESSION_NAME, user);
@@ -161,6 +166,45 @@ public class UserServiceImpl implements UserService {
                 result.put("email", user.getEmail());
                 result.put("password", user.getPasswd());
             }
+        }
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> getUserInf(Integer userId) {
+        Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
+        User user = userDAO.selectUserById(userId);
+        if(user == null){
+            result.put(JSON_RETURN_CODE_NAME, NO_USER);
+        }
+        else{
+            result.put(JSON_RETURN_CODE_NAME, SUCCESS);
+            Map<String, Object> userInf = new HashMap<>(MIN_HASH_MAP_NUM);
+            userInf.put("id", user.getId());
+            userInf.put("name", user.getName());
+            userInf.put("head", ImgUtil.changeAvatar(user.getHead()));
+            userInf.put("email", user.getEmail());
+            userInf.put("gender", user.getGender());
+            userInf.put("introduction", user.getIntroduction());
+            userInf.put("isVerify", user.getIsVerify());
+            if(user.getIsVerify().equals("1")){
+                userInf.put("realName", user.getRealname());
+                userInf.put("college", user.getCollege());
+                userInf.put("classNum", user.getClassNum());
+            }
+            //TODO 添加等级表和获取经验的工具类
+            userInf.put("level", user.getLevel());
+            userInf.put("taskNum", taskDAO.getNumOfUserPublishTask(userId));
+            userInf.put("replyNum", replyDAO.getNumOfUserSendReply(userId));
+            userInf.put("badgeNum", badgeGetDAO.getNumOfUserGetBadge(userId));
+            List<Message> messages = messageDAO.listUnreadMessage(userId);
+            if(messages.isEmpty()){
+                userInf.put("hasNotReadMsg",0);
+            }
+            else{
+                userInf.put("hasNotReadMsg",1);
+            }
+            result.put("userInf", userInf);
         }
         return result;
     }

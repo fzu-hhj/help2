@@ -110,7 +110,7 @@ public class ConstantUtil {
     public final static int RESET_PASSWORD_FAIL = 1;
     public final static int VERIFY_DEFAULT = 1;
     public final static int SUCCESS_LOGON = 0;
-    public final static String NO_USER = null;
+    public final static int NO_USER = 1;
     public final static int WRONG_PASSWORD = 1;
 
     //IdentityAction

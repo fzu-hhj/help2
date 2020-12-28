@@ -46,4 +46,11 @@ public interface UserService {
      * @return 结果集
      */
     public Map<String, Object> loginByEmailVerifyCode(String email, String verifyCode);
+
+    /**
+     * 根据用户id获取用户的信息
+     * @param userId 用户id
+     * @return 用户信息
+     */
+    public Map<String, Object> getUserInf(Integer userId);
 }
