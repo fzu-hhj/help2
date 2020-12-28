@@ -10,7 +10,7 @@ public class Task {
     @Id
     @GeneratedValue(generator = "JDBC")
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "synopsis")
     private String synopsis;
@@ -22,10 +22,10 @@ public class Task {
     private LocalDateTime time;
 
     @Column(name = "user_id")
-    private int userId;
+    private Integer userId;
 
     @Column(name = "category_id")
-    private int categoryId;
+    private Integer categoryId;
 
     @Column(name = "is_compeleted")
     private String isCompeleted;
@@ -34,14 +34,14 @@ public class Task {
     private String isDeleted;
 
     @Column(name = "views")
-    private int views;
+    private Integer views;
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -73,20 +73,20 @@ public class Task {
     }
 
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
 
-    public int getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -109,11 +109,11 @@ public class Task {
     }
 
 
-    public int getViews() {
+    public Integer getViews() {
         return views;
     }
 
-    public void setViews(int views) {
+    public void setViews(Integer views) {
         this.views = views;
     }
 

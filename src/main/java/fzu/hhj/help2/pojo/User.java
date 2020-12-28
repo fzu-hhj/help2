@@ -10,7 +10,7 @@ public class User {
     @Id
     @GeneratedValue(generator = "JDBC")
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -40,10 +40,10 @@ public class User {
     private String college;
 
     @Column(name = "class_num")
-    private int classNum;
+    private Integer classNum;
 
     @Column(name = "level")
-    private int level;
+    private Integer level;
 
     @Column(name = "is_suspend")
     private String isSuspend;
@@ -55,11 +55,11 @@ public class User {
     private Integer exp;
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -145,20 +145,20 @@ public class User {
     }
 
 
-    public int getClassNum() {
+    public Integer getClassNum() {
         return classNum;
     }
 
-    public void setClassNum(int classNum) {
+    public void setClassNum(Integer classNum) {
         this.classNum = classNum;
     }
 
 
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 
@@ -180,6 +180,7 @@ public class User {
         this.suspendTime = suspendTime;
     }
 
+
     public Integer getExp() {
         return exp;
     }
@@ -187,4 +188,5 @@ public class User {
     public void setExp(Integer exp) {
         this.exp = exp;
     }
+
 }

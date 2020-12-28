@@ -10,13 +10,13 @@ public class Reply {
     @Id
     @GeneratedValue(generator = "JDBC")
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "task_id")
-    private int taskId;
+    private Integer taskId;
 
     @Column(name = "user_id")
-    private int userId;
+    private Integer userId;
 
     @Column(name = "content")
     private String content;
@@ -28,38 +28,38 @@ public class Reply {
     private String isDeleted;
 
     @Column(name = "likes")
-    private int likes;
+    private Integer likes;
 
     @Column(name = "objections")
-    private int objections;
+    private Integer objections;
 
     @Column(name = "is_adopted")
     private String isAdopted;
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
 
-    public int getTaskId() {
+    public Integer getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(int taskId) {
+    public void setTaskId(Integer taskId) {
         this.taskId = taskId;
     }
 
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -91,20 +91,20 @@ public class Reply {
     }
 
 
-    public int getLikes() {
+    public Integer getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(Integer likes) {
         this.likes = likes;
     }
 
 
-    public int getObjections() {
+    public Integer getObjections() {
         return objections;
     }
 
-    public void setObjections(int objections) {
+    public void setObjections(Integer objections) {
         this.objections = objections;
     }
 

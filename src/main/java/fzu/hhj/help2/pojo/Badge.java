@@ -10,7 +10,7 @@ public class Badge {
     @Id
     @GeneratedValue(generator = "JDBC")
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -19,11 +19,11 @@ public class Badge {
     private String request;
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

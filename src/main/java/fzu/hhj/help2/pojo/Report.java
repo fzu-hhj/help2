@@ -10,16 +10,16 @@ public class Report {
     @Id
     @GeneratedValue(generator = "JDBC")
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "reporter_id")
-    private int reporterId;
+    private Integer reporterId;
 
     @Column(name = "is_handled")
     private String isHandled;
 
     @Column(name = "reason_id")
-    private int reasonId;
+    private Integer reasonId;
 
     @Column(name = "content")
     private String content;
@@ -28,26 +28,26 @@ public class Report {
     private LocalDateTime time;
 
     @Column(name = "reported_id")
-    private int reportedId;
+    private Integer reportedId;
 
     @Column(name = "reported_category")
-    private int reportedCategory;
+    private Integer reportedCategory;
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
 
-    public int getReporterId() {
+    public Integer getReporterId() {
         return reporterId;
     }
 
-    public void setReporterId(int reporterId) {
+    public void setReporterId(Integer reporterId) {
         this.reporterId = reporterId;
     }
 
@@ -61,11 +61,11 @@ public class Report {
     }
 
 
-    public int getReasonId() {
+    public Integer getReasonId() {
         return reasonId;
     }
 
-    public void setReasonId(int reasonId) {
+    public void setReasonId(Integer reasonId) {
         this.reasonId = reasonId;
     }
 
@@ -88,20 +88,20 @@ public class Report {
     }
 
 
-    public int getReportedId() {
+    public Integer getReportedId() {
         return reportedId;
     }
 
-    public void setReportedId(int reportedId) {
+    public void setReportedId(Integer reportedId) {
         this.reportedId = reportedId;
     }
 
 
-    public int getReportedCategory() {
+    public Integer getReportedCategory() {
         return reportedCategory;
     }
 
-    public void setReportedCategory(int reportedCategory) {
+    public void setReportedCategory(Integer reportedCategory) {
         this.reportedCategory = reportedCategory;
     }
 

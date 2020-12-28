@@ -10,38 +10,38 @@ public class Notice {
     @Id
     @GeneratedValue(generator = "JDBC")
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "content")
-    private int content;
+    private Integer content;
 
     @Column(name = "time")
-    private int time;
+    private Integer time;
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
 
-    public int getContent() {
+    public Integer getContent() {
         return content;
     }
 
-    public void setContent(int content) {
+    public void setContent(Integer content) {
         this.content = content;
     }
 
 
-    public int getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 

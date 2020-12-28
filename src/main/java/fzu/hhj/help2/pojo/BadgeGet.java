@@ -10,41 +10,41 @@ public class BadgeGet {
     @Id
     @GeneratedValue(generator = "JDBC")
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "user_id")
-    private int userId;
+    private Integer userId;
 
     @Column(name = "badge_id")
-    private int badgeId;
+    private Integer badgeId;
 
     @Column(name = "time")
     private LocalDateTime time;
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
 
-    public int getBadgeId() {
+    public Integer getBadgeId() {
         return badgeId;
     }
 
-    public void setBadgeId(int badgeId) {
+    public void setBadgeId(Integer badgeId) {
         this.badgeId = badgeId;
     }
 

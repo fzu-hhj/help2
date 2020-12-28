@@ -10,7 +10,7 @@ public class Admin {
     @Id
     @GeneratedValue(generator = "JDBC")
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "account")
     private String account;
@@ -19,11 +19,11 @@ public class Admin {
     private String passwd;
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
