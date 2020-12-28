@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="/js/jquery-3.5.1.min.js"></script> <!--自己找一个jquery，在线的也可以-->
+    <script type="text/javascript">
+        function show(){
+            $.post("test/tt",{},
+                function(result){
+                    alert(result);
+                }
+            );
+        }
+
+    </script>
+</head>
+<body>
+<button onclick="show()">你大爷</button>
+</body>
+</html>

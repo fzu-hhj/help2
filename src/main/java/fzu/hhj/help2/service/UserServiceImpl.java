@@ -100,19 +100,10 @@ public class UserServiceImpl implements UserService {
         /*默认信息*/
         //注册时间为当前系统时间
 //        user.setDate( new Timestamp(System.currentTimeMillis()));
-        //初始徽章为0
-//        user.setBadgeNum(0);
-        //初始经验为1
+
         user.setExp(1);
         //初始性别为保密
         user.setGender("未知");
-        //初始用户无身份认证信息
-//        user.setIsAttest((byte) 0);
-//        Userstate userstate = new Userstate();
-//        userstate.setId(1);
-        //初始用户状态为正常
-//        user.setUserstateByStateId(userstate);
-        //初始头像
         user.setHead("head1.jpg");
 //        user.setReportedTimes(0);
         userDAO.insert(user);
