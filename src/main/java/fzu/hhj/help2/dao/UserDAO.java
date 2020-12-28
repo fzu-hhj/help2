@@ -19,10 +19,7 @@ public class UserDAO {
     public boolean hasUserName(String username){
         Example example = new Example(User.class);
         example.createCriteria().andEqualTo("name",username);
-        if(userMapper.selectByExample(example).isEmpty()){
-            return false;
-        }
-        return true;
+        return !userMapper.selectByExample(example).isEmpty();
     }
 
     /**
@@ -33,10 +30,7 @@ public class UserDAO {
     public boolean hasUserEmail(String email){
         Example example = new Example(User.class);
         example.createCriteria().andEqualTo("email", email);
-        if(userMapper.selectByExample(example).isEmpty()){
-            return false;
-        }
-        return true;
+        return !userMapper.selectByExample(example).isEmpty();
     }
 
     /**
