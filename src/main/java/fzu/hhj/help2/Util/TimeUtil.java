@@ -14,6 +14,11 @@ public class TimeUtil {
     final static private int MILLIS_PER_HOUR = 60*60;
     final static private int MILLIS_PER_MINUTE = 60;
 
+    /**
+     * 时间转化
+     * @param m 时间
+     * @return 10天前
+     */
     public static String getTime(Date m){
         long ms = m.getTime();
         long second,minutes, hours, days,month,years;
@@ -48,7 +53,7 @@ public class TimeUtil {
     /**
      * 时间转换
      * @param data
-     * @return
+     * @return 2020-12-28 23:56:31
      */
     public static String getTime1(Date data) {
         String sDate = "";
