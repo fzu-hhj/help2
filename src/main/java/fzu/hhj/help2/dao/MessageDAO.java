@@ -22,7 +22,7 @@ public class MessageDAO {
      */
     public List<Message> listReceivedMessage(Integer userId){
         Example example = new Example(Message.class);
-        example.createCriteria().andEqualTo("receiverId",userId);
+        example.createCriteria().andEqualTo("receiverId",userId).andEqualTo("isDeleted","0");
         return messageMapper.selectByExample(example);
     }
 
@@ -33,11 +33,18 @@ public class MessageDAO {
      */
     public List<Message> listUnreadMessage(Integer userId){
         Example example = new Example(Message.class);
-        example.createCriteria().andEqualTo("receiverId",userId).andEqualTo("isRead","0");
+        example.createCriteria().andEqualTo("receiverId",userId).andEqualTo("isRead","0").
+                andEqualTo("isDeleted","0");
         return messageMapper.selectByExample(example);
     }
 
     public void insert(Message message){
         messageMapper.insertSelective(message);
+    }
+
+    public Message selectMessageById(Integer messageId){
+        Example example = new Example(Message.class);
+        example.createCriteria().andEqualTo("id", messageId).andEqualTo("isDeleted","0");
+        return messageMapper.selectByExample(example).get(0);
     }
 }

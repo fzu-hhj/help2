@@ -11,4 +11,8 @@ public interface MessageService {
      * @return 结果集
      */
     public Map<String, Object> sendMessage(Integer receiverId,String content);
+
+    public Map<String, Object> getMessage(Integer messageId);
+
+    public Map<String, Object> listMessages();
 }

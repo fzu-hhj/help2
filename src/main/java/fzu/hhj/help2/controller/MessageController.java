@@ -18,4 +18,14 @@ public class MessageController {
     public Map<String, Object> sendEmail(@RequestParam Integer receiverId, @RequestParam String content){
         return messageService.sendMessage(receiverId, content);
     }
+
+    @RequestMapping("/getMessage")
+    public  Map<String, Object> getMessage(@RequestParam Integer messageId){
+        return messageService.getMessage(messageId);
+    }
+
+    @RequestMapping("/listMessages")
+    public Map<String, Object> listMessages(){
+        return messageService.listMessages();
+    }
 }
