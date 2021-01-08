@@ -279,7 +279,7 @@ public class UserServiceImpl implements UserService {
         for(Task task1: tasks){
             Map<String, Object> taskMap = new HashMap<>(MIN_HASH_MAP_NUM);
             taskMap.put("id", task1.getId());
-            taskMap.put("Synopsis", task1.getSynopsis());
+            taskMap.put("synopsis", task1.getSynopsis());
             taskMap.put("content", task1.getContent());
             taskMap.put("category", taskCategoryDAO.selectById(task1.getCategoryId()).getCategory());
             taskMap.put("time", task1.getTime());

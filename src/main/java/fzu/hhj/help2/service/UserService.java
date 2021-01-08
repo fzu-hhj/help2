@@ -50,7 +50,7 @@ public interface UserService {
     /**
      * 根据用户id获取用户的信息
      * @param userId 用户id
-     * @return 用户信息
+     * @return result{"resultCode":?; "userInf"{"id":?; "name":?; ...}}
      */
     public Map<String, Object> getSimpleUserInf(Integer userId);
 
@@ -80,7 +80,9 @@ public interface UserService {
     /**
      * 获取用户的大部分信息，包括发布的任务，回复
      * @param userId 用户id
-     * @return 结果集
+     * @return result{"resultCode":?; userInf{"id":?; "name":?;
+     *      "tasks":[task1{"id":?; "Synopsis":?; ...}, task2{...}, ...]};
+     *      "replies":[reply1{"id”:?; "content":?; ...}, reply2{...}, ..]}
      */
     public Map<String, Object> getAllUserInf(Integer userId);
 
