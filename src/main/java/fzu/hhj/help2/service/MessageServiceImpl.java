@@ -1,6 +1,7 @@
 package fzu.hhj.help2.service;
 
 import fzu.hhj.help2.Util.ServletUtil;
+import fzu.hhj.help2.Util.TimeUtil;
 import fzu.hhj.help2.dao.MessageDAO;
 import fzu.hhj.help2.dao.UserDAO;
 import fzu.hhj.help2.pojo.Message;
@@ -57,7 +58,7 @@ public class MessageServiceImpl implements MessageService {
             messageInf.put("senderId", userDAO.selectUserById(message.getSenderId()).getId());
             messageInf.put("senderName", userDAO.selectUserById(message.getSenderId()).getName());
         }
-        messageInf.put("time", message.getTime());
+        messageInf.put("time", TimeUtil.getTime(message.getTime()));
         result.put("message", messageInf);
         return result;
     }
@@ -83,10 +84,10 @@ public class MessageServiceImpl implements MessageService {
                 messageMap.put("senderId", userDAO.selectUserById(message1.getSenderId()).getId());
                 messageMap.put("senderName", userDAO.selectUserById(message1.getSenderId()).getName());
             }
-            messageMap.put("time", message1.getTime());
+            messageMap.put("time",  TimeUtil.getTime(message1.getTime()));
             messageMaps.add(messageMap);
         }
-        result.put("messages", messages);
+        result.put("messages", messageMaps);
         return result;
     }
 }
