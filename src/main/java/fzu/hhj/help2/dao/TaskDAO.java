@@ -43,6 +43,9 @@ public class TaskDAO {
     public Task selectNoDelete(Integer taskId){
         Example example = new Example(Task.class);
         example.createCriteria().andEqualTo("id", taskId).andEqualTo("isDeleted", "0");
+        if(taskMapper.selectByExample(example).size() == 0){
+            return null;
+        }
         return taskMapper.selectByExample(example).get(0);
     }
 
@@ -53,4 +56,36 @@ public class TaskDAO {
     public void updateSelective(Task task){
         taskMapper.updateByPrimaryKeySelective(task);
     }
+
+    public List<Task> listSelectedTasks(Integer categoryId, String isCompleted, Integer sort){
+        Example example = new Example(Task.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("isDeleted", "0");
+        if(categoryId != null){
+            criteria.andEqualTo("categoryId", categoryId);
+        }
+        if(isCompleted != null && isCompleted != ""){
+            criteria.andEqualTo("isCompleted", isCompleted);
+        }
+        if(sort == null ){
+            example.setOrderByClause("time DESC");
+        }
+        else {
+            switch (sort){
+                case 2:
+                    example.setOrderByClause("time ASC");
+                    break;
+                case 3:
+                    example.setOrderByClause("views DESC");
+                    break;
+                case 4:
+                    example.setOrderByClause("views ASC");
+                    break;
+                default:
+                    example.setOrderByClause("time DESC");
+            }
+        }
+        return taskMapper.selectByExample(example);
+    }
+
 }

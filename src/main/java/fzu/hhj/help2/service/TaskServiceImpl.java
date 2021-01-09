@@ -161,8 +161,7 @@ public class TaskServiceImpl implements TaskService {
             result.put(JSON_RETURN_CODE_NAME, NO_USER);
             return result;
         }
-        List<Task> tasks = taskDAO.ListTaskByUserId(user.getId());
-        result.put("tasks", tasks);
+        result.put("tasks", taskDAO.ListTaskByUserId(user.getId()));
         result.put(JSON_RETURN_CODE_NAME, SUCCESS);
         return result;
     }
@@ -180,7 +179,7 @@ public class TaskServiceImpl implements TaskService {
             result.put(JSON_RETURN_CODE_NAME, JSON_RESULT_CODE_NON_EXISTENT);
             return result;
         }
-        if(user.getId() != task.getUserId()){
+        if(user.getId() != task.getUserId() || task.getCategoryId() == 1){
             result.put(JSON_RETURN_CODE_NAME, NO_PERMISSION);
             return result;
         }
@@ -203,7 +202,7 @@ public class TaskServiceImpl implements TaskService {
             result.put(JSON_RETURN_CODE_NAME, JSON_RESULT_CODE_NON_EXISTENT);
             return result;
         }
-        if(user.getId() != task.getUserId() || task.getCategoryId() != 2){
+        if(user.getId() != task.getUserId() ){
             result.put(JSON_RETURN_CODE_NAME, NO_PERMISSION);
             return result;
         }
@@ -214,8 +213,16 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Map<String, Object> listTasks() {
-        return null;
+    public Map<String, Object> listSelectedTasks(Integer categoryId, String isCompleted, Integer sort) {
+        Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
+        User user = (User)ServletUtil.getRequest().getSession().getAttribute("user");
+        if(user == null){
+            result.put(JSON_RETURN_CODE_NAME, NO_USER);
+            return result;
+        }
+        result.put("tasks", taskDAO.listSelectedTasks(categoryId, isCompleted, sort));
+        result.put(JSON_RETURN_CODE_NAME, SUCCESS);
+        return result;
     }
 
     private void increaseViews(Task task){

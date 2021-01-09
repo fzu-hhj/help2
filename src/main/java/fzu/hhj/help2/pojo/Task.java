@@ -28,8 +28,8 @@ public class Task {
     @Column(name = "category_id")
     private Integer categoryId;
 
-    @Column(name = "is_compeleted")
-    private String isCompeleted;
+    @Column(name = "is_completed")
+    private String isCompleted;
 
     @Column(name = "is_deleted")
     private String isDeleted;
@@ -93,11 +93,11 @@ public class Task {
 
 
     public String getIsCompeleted() {
-        return isCompeleted;
+        return isCompleted;
     }
 
     public void setIsCompeleted(String isCompeleted) {
-        this.isCompeleted = isCompeleted;
+        this.isCompleted = isCompeleted;
     }
 
 

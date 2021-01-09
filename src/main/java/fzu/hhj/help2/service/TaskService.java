@@ -52,9 +52,10 @@ public interface TaskService {
      * @return 结果码
      */
     public Map<String, Object> finishTask(Integer taskId);
+
     /**
      * 获取所有的任务
-     * @return
+     * @return 根据条件查询出任务
      */
-    public Map<String, Object> listTasks();
+    public Map<String, Object> listSelectedTasks(Integer categoryId, String isCompleted, Integer sort);
 }

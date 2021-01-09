@@ -30,4 +30,26 @@ public class TaskController {
     public Map<String, Object> getTask(@RequestParam Integer taskId, @RequestParam(required = false) Integer sort){
         return taskService.getTaskById(taskId, sort);
     }
+
+    @RequestMapping("/listTasksByUser")
+    public Map<String, Object> listTasksByUser(){
+        return taskService.listTasksByUser();
+    }
+
+    @RequestMapping("/cancelTask")
+    public Map<String, Object> cancelTask(@RequestParam Integer taskId){
+        return taskService.cancelTask(taskId);
+    }
+
+    @RequestMapping("/finishTask")
+    public Map<String, Object> finishTask(@RequestParam Integer taskId){
+        return taskService.finishTask(taskId);
+    }
+
+    @RequestMapping("/listSelectedTasks")
+    public Map<String, Object> listSelectedTasks(@RequestParam(required = false) Integer categoryId,
+                                                 @RequestParam(required = false)String isCompleted,
+                                                 @RequestParam(required = false)Integer sort){
+        return taskService.listSelectedTasks(categoryId, isCompleted, sort);
+    }
 }
