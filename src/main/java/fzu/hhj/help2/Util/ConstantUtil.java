@@ -76,6 +76,7 @@ public class ConstantUtil {
     public final static int PARTITION_QUESTION_COUNT = 20;
 
     //Question
+    public static final int MISS_TASK_INF = 2;
     public static final int QUESTION_SHOW_ANSWER_NUM = 10;
     public final static int MISS_QUESTION_INF = 2;
     public final static int ANSWER_DEFAULT_SORT = 0;
@@ -127,11 +128,23 @@ public class ConstantUtil {
     public static final Integer RESULT_CODE_PARAMS_ERROR = 2;
 
     //MessageUtil
+    //表示用户向用户发送的消息
     public final static int USER2USER = 0;
+    //表示系统的通知消息
     public final static int SYSTEM_NOTIFICATION = 1;
+    //表示系统的奖励消息
     public final static int SYSTEM_REWARD = 2;
+    //表示系统的处罚消息
     public final static int SYSTEM_PENALTY = 3;
-    public final static int INVITE_USER_TO_ANSWER = 5;
+
+    //Reply
+    //按likes降序
+    public static final int REPLY_DEFAULT_SORT = 0;
+    //按时间降序
+    public static final int REPLY_DATE_SORT = 1;
+
+    //Task
+    public static final int NO_PERMISSION = 2;
 
     //JsonUtil
     public final static int IS_NOT_JSON_ARRAY = 1;

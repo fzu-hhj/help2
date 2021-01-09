@@ -2,6 +2,7 @@ package fzu.hhj.help2.pojo;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "task")
@@ -19,7 +20,7 @@ public class Task {
     private String content;
 
     @Column(name = "time")
-    private LocalDateTime time;
+    private Date time;
 
     @Column(name = "user_id")
     private Integer userId;
@@ -64,11 +65,11 @@ public class Task {
     }
 
 
-    public LocalDateTime getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 

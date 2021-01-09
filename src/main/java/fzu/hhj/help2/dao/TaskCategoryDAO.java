@@ -5,6 +5,8 @@ import fzu.hhj.help2.pojo.TaskCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository("/taskCategoryMapper")
 public class TaskCategoryDAO {
     @Autowired
@@ -12,5 +14,9 @@ public class TaskCategoryDAO {
 
     public TaskCategory selectById(Integer id){
         return taskCategoryMapper.selectByPrimaryKey(id);
+    }
+
+    public List<TaskCategory> selectAll(){
+        return taskCategoryMapper.selectAll();
     }
 }

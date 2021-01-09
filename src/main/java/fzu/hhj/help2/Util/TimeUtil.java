@@ -2,7 +2,6 @@ package fzu.hhj.help2.Util;
 
 import java.util.Date;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 

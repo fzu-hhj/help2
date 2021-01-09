@@ -26,7 +26,7 @@ public class MessageServiceImpl implements MessageService {
         Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
         User user = (User) ServletUtil.getRequest().getSession().getAttribute("user");
         if(user == null){
-            result.put(JSON_RETURN_CODE_NAME, LOGIN_NO_ELIGIBLE_USER);
+            result.put(JSON_RETURN_CODE_NAME, NO_USER);
             return result;
         }
         Message message = new Message();
@@ -45,7 +45,7 @@ public class MessageServiceImpl implements MessageService {
         Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
         User user = (User) ServletUtil.getRequest().getSession().getAttribute("user");
         if(user == null){
-            result.put(JSON_RETURN_CODE_NAME, LOGIN_NO_ELIGIBLE_USER);
+            result.put(JSON_RETURN_CODE_NAME, NO_USER);
             return result;
         }
         result.put(JSON_RETURN_CODE_NAME, SUCCESS);
@@ -68,7 +68,7 @@ public class MessageServiceImpl implements MessageService {
         Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
         User user = (User) ServletUtil.getRequest().getSession().getAttribute("user");
         if(user == null){
-            result.put(JSON_RETURN_CODE_NAME, LOGIN_NO_ELIGIBLE_USER);
+            result.put(JSON_RETURN_CODE_NAME, NO_USER);
             return result;
         }
         Integer userId = user.getId();

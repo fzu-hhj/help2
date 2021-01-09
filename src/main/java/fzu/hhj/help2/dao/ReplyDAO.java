@@ -34,4 +34,46 @@ public class ReplyDAO {
         example.createCriteria().andEqualTo("userId", userId).andEqualTo("isDeleted", "0");
         return replyMapper.selectByExample(example);
     }
+
+    /**
+     * 获得任务下的所有回复
+     * @param taskId 任务id
+     * @param sort 排序方式
+     * @return 回复集
+     */
+    public List<Reply> listReplyByTaskIdSort(Integer taskId, Integer sort){
+        Example example = new Example(Reply.class);
+        if(sort == 0){
+            example.setOrderByClause("likes DESC");
+        }
+        else {
+            example.setOrderByClause("time DESC");
+        }
+        example.createCriteria().andEqualTo("taskId", taskId).andEqualTo("isDeleted", "0");
+        return replyMapper.selectByExample(example);
+    }
+
+    /**
+     * 根据任务id获取部分任务的回复
+     * @param taskId 任务id
+     * @param start 开始索引
+     * @param length 长度
+     * @param sort 排序方法
+     * @return 回复集
+     */
+    public List<Reply> listPartReplyByTaskIdSort(Integer taskId, Integer start, Integer length, Integer sort){
+        return listReplyByTaskIdSort(taskId, sort).subList(start, start + length);
+    }
+
+    /**
+     * 获取被采纳的回复
+     * @param taskId 任务id
+     * @return 回复
+     */
+    public Reply getAdoptedReplyByTaskId(Integer taskId){
+        Example example = new Example(Reply.class);
+        example.createCriteria().andEqualTo("taskId", taskId).andEqualTo("isAdopted", "1");
+        return replyMapper.selectByExample(example).get(0);
+    }
+
 }
