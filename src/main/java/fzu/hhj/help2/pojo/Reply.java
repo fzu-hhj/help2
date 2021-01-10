@@ -2,6 +2,7 @@ package fzu.hhj.help2.pojo;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "reply")
@@ -22,7 +23,7 @@ public class Reply {
     private String content;
 
     @Column(name = "time")
-    private LocalDateTime time;
+    private Date time;
 
     @Column(name = "is_deleted")
     private String isDeleted;
@@ -73,11 +74,11 @@ public class Reply {
     }
 
 
-    public LocalDateTime getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 

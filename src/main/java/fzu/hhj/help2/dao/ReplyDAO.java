@@ -76,4 +76,7 @@ public class ReplyDAO {
         return replyMapper.selectByExample(example).get(0);
     }
 
+    public void insert(Reply reply){
+        replyMapper.insertSelective(reply);
+    }
 }

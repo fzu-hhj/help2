@@ -142,6 +142,7 @@ public class ConstantUtil {
     public static final int REPLY_DEFAULT_SORT = 0;
     //按时间降序
     public static final int REPLY_DATE_SORT = 1;
+    public static final int EMPTY_STRING = 2;
 
     //Task
     public static final int NO_PERMISSION = 2;
