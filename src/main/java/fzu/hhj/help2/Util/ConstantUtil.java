@@ -143,9 +143,13 @@ public class ConstantUtil {
     //按时间降序
     public static final int REPLY_DATE_SORT = 1;
     public static final int EMPTY_STRING = 2;
+    public static final int NOT_EXIST_REPLY = 3;
+    public static final boolean SUPPORT_REPLY = true;
+    public static final boolean OBJECT_REPLY = false;
+    public static final int TASK_HAS_ADOPTED = 4;
 
     //Task
-    public static final int NO_PERMISSION = 2;
+    public static final int NO_PERMISSION = 5;
 
     //JsonUtil
     public final static int IS_NOT_JSON_ARRAY = 1;

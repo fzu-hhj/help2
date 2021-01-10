@@ -18,4 +18,24 @@ public class ReplyController {
     public Map<String, Object> postReply(@RequestParam Integer taskId, @RequestParam String content){
         return replyService.postReply(taskId, content);
     }
+
+    @RequestMapping("supportReply")
+    public Map<String, Object> supportReply(@RequestParam Integer replyId){
+        return replyService.supportReply(replyId);
+    }
+
+    @RequestMapping("objectReply")
+    public Map<String, Object> objectReply(@RequestParam Integer replyId){
+        return replyService.objectReply(replyId);
+    }
+
+    @RequestMapping("/adoptReply")
+    public Map<String, Object> adoptReply(@RequestParam Integer replyId){
+        return replyService.adoptReply(replyId);
+    }
+
+    @RequestMapping("/cancelAdoptReply")
+    public Map<String, Object> cancelAdoptReply(@RequestParam Integer replyId){
+        return replyService.cancelAdoptReply(replyId);
+    }
 }

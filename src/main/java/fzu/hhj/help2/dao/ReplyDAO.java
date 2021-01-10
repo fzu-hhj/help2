@@ -73,10 +73,37 @@ public class ReplyDAO {
     public Reply getAdoptedReplyByTaskId(Integer taskId){
         Example example = new Example(Reply.class);
         example.createCriteria().andEqualTo("taskId", taskId).andEqualTo("isAdopted", "1");
+        if(replyMapper.selectByExample(example).size() == 0){
+            return null;
+        }
         return replyMapper.selectByExample(example).get(0);
     }
 
+    //插入回复
     public void insert(Reply reply){
         replyMapper.insertSelective(reply);
+    }
+
+    public Reply selectById(Integer replyId){
+        Example example = new Example(Reply.class);
+        example.createCriteria().andEqualTo("id", replyId).andEqualTo("isDeleted", "0");
+        if(replyMapper.selectByExample(example).size() == 0){
+            return null;
+        }
+        return replyMapper.selectByExample(example).get(0);
+    }
+
+    public Reply selectAdoptedReplyById(Integer replyId){
+        Example example = new Example(Reply.class);
+        example.createCriteria().andEqualTo("id", replyId).andEqualTo("isDeleted", "0").
+                andEqualTo("isAdopted", "1");
+        if(replyMapper.selectByExample(example).size() == 0){
+            return null;
+        }
+        return replyMapper.selectByExample(example).get(0);
+    }
+
+    public void updateSelective(Reply reply){
+        replyMapper.updateByPrimaryKeySelective(reply);
     }
 }
