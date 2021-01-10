@@ -117,7 +117,6 @@ public class WordFilterUtil {
 
     /**
      * 读取敏感词库，将敏感词放入HashSet中，构建一个DFA算法模型：
-     * 说明：该方法来源于互联网
      */
     private static void addSensitiveWord(List<String> datas) {
         sensitiveWordMap = new HashMap(datas.size());
@@ -147,7 +146,6 @@ public class WordFilterUtil {
 
     /**
      * 获取内容中的敏感词
-     *说明：该方法来源于互联网
      * @param text      内容
      * @param matchType 匹配规则 1=不最佳匹配，2=最佳匹配
      * @return

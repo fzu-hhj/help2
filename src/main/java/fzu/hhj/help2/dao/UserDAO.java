@@ -44,6 +44,9 @@ public class UserDAO {
         if(userMapper.selectByExample(example).isEmpty()){
             return null;
         }
+        if(userMapper.selectByExample(example).size() == 0){
+            return null;
+        }
         return userMapper.selectByExample(example).get(0);
     }
 
@@ -58,6 +61,9 @@ public class UserDAO {
         if(userMapper.selectByExample(example).isEmpty()){
             return null;
         }
+        if(userMapper.selectByExample(example).size() == 0){
+            return null;
+        }
         return userMapper.selectByExample(example).get(0);
     }
 
@@ -70,6 +76,9 @@ public class UserDAO {
         Example example =new Example(User.class);
         example.createCriteria().andEqualTo("id", userId);
         if(userMapper.selectByExample(example).isEmpty()){
+            return null;
+        }
+        if(userMapper.selectByExample(example).size() == 0){
             return null;
         }
         return userMapper.selectByExample(example).get(0);
