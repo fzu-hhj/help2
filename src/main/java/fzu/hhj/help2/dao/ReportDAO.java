@@ -36,4 +36,11 @@ public class ReportDAO {
     public void updateSelective(Report report){
         reportMapper.updateByPrimaryKeySelective(report);
     }
+
+    public void updateByCategoryAndReportedId(String category, Integer reportedId,Report report){
+        Example example = new Example(Report.class);
+        example.createCriteria().andEqualTo("reportedCategory", category).
+                andEqualTo("reportedId", reportedId);
+        reportMapper.updateByExampleSelective(report, example);
+    }
 }

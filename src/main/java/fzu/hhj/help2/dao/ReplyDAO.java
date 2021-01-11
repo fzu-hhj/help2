@@ -93,6 +93,10 @@ public class ReplyDAO {
         return replyMapper.selectByExample(example).get(0);
     }
 
+    public Reply selectById(Integer replyId){
+        return replyMapper.selectByPrimaryKey(replyId);
+    }
+
     public Reply selectAdoptedReplyById(Integer replyId){
         Example example = new Example(Reply.class);
         example.createCriteria().andEqualTo("id", replyId).andEqualTo("isDeleted", "0").

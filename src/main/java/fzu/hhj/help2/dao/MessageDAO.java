@@ -45,7 +45,15 @@ public class MessageDAO {
     public Message selectNoDelete(Integer messageId){
         Example example = new Example(Message.class);
         example.createCriteria().andEqualTo("id", messageId).andEqualTo("isDeleted","0");
+        if(messageMapper.selectByExample(example).size() == 0){
+            return null;
+        }
         return messageMapper.selectByExample(example).get(0);
+    }
+
+    public Message selectById(Integer messageId){
+
+        return messageMapper.selectByPrimaryKey(messageId);
     }
 
     public void update(Message message){

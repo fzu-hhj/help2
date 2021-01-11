@@ -80,9 +80,6 @@ public class UserDAO {
         if(userMapper.selectByExample(example).isEmpty()){
             return null;
         }
-        if(userMapper.selectByExample(example).size() == 0){
-            return null;
-        }
         return userMapper.selectByExample(example).get(0);
     }
 
