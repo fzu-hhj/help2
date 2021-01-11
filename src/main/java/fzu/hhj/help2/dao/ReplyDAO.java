@@ -84,7 +84,7 @@ public class ReplyDAO {
         replyMapper.insertSelective(reply);
     }
 
-    public Reply selectById(Integer replyId){
+    public Reply selectNoDelete(Integer replyId){
         Example example = new Example(Reply.class);
         example.createCriteria().andEqualTo("id", replyId).andEqualTo("isDeleted", "0");
         if(replyMapper.selectByExample(example).size() == 0){

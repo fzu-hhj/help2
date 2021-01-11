@@ -1,14 +1,13 @@
 package fzu.hhj.help2.service;
 
-import com.alibaba.fastjson.JSON;
 import fzu.hhj.help2.Util.MessageUtil;
 import fzu.hhj.help2.Util.TimeUtil;
 import fzu.hhj.help2.dao.*;
 import fzu.hhj.help2.pojo.*;
-import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,14 +91,14 @@ public class AdminServiceImpl implements AdminService{
             reportMap.put("taskContent", taskDAO.selectNoDelete(report.getReportedId()).getContent());
         }
         else if(report.getReportedCategory().equals(REPORT_TO_REPLY)){
-            reportMap.put("replyContent", replyDAO.selectById(report.getReportedId()).getContent());
+            reportMap.put("replyContent", replyDAO.selectNoDelete(report.getReportedId()).getContent());
         }
         else if(report.getReportedCategory().equals(REPORT_TO_MESSAGE)){
-            reportMap.put("messageContent", messageDAO.selectMessageById(report.getReportedId()).getContent());
+            reportMap.put("messageContent", messageDAO.selectNoDelete(report.getReportedId()).getContent());
         }
         result.put("report", reportMap);
         result.put(JSON_RETURN_CODE_NAME, SUCCESS);
-        return null;
+        return result;
     }
 
     @Override
@@ -121,17 +120,22 @@ public class AdminServiceImpl implements AdminService{
                 taskDAO.updateSelective(task);
             }
             else if(report.getReportedCategory().equals(REPORT_TO_REPLY)){
-                Reply reply = replyDAO.selectById(report.getReportedId());
+                Reply reply = replyDAO.selectNoDelete(report.getReportedId());
                 reply.setIsDeleted("1");
                 replyDAO.updateSelective(reply);
             }
             else if(report.getReportedCategory().equals(REPORT_TO_MESSAGE)){
-                Message message = messageDAO.selectMessageById(report.getReportedId());
+                Message message = messageDAO.selectNoDelete(report.getReportedId());
                 message.setIsDeleted("1");
                 messageDAO.update(message);
             }
             User user = userDAO.selectUserById(report.getReportedId());
-            user.setSuspendTime(TimeUtil.addTime(user.getSuspendTime(), suspendTime));
+            if(user.getSuspendTime() == null){
+                user.setSuspendTime(TimeUtil.addTime(new Date(), suspendTime));
+            }
+            else {
+                user.setSuspendTime(TimeUtil.addTime(user.getSuspendTime(), suspendTime));
+            }
             String s;
             if(suspendTime < 0){
                 s = "您由于发表违规言论，账号被封禁100年。";
@@ -140,6 +144,8 @@ public class AdminServiceImpl implements AdminService{
                 s = "您由于发表违规言论，账号被封禁" + suspendTime.toString() + "天";
             }
             messageUtil.newMessage(SYSTEM_PENALTY, user, s);
+            messageUtil.newMessage(SYSTEM_PENALTY, userDAO.selectUserById(report.getReporterId()),
+                    "您的举报已处理，谢谢您对于和谐环境的维护");
         }
         report.setIsHandled("1");
         reportDAO.updateSelective(report);

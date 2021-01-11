@@ -49,6 +49,10 @@ public class TaskDAO {
         return taskMapper.selectByExample(example).get(0);
     }
 
+    public Task selectById(Integer taskId){
+        return taskMapper.selectByPrimaryKey(taskId);
+    }
+
     /**
      * 根据主键更新任务信息
      * @param task 任务

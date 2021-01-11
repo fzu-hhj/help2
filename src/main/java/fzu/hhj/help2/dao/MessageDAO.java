@@ -42,7 +42,7 @@ public class MessageDAO {
         messageMapper.insertSelective(message);
     }
 
-    public Message selectMessageById(Integer messageId){
+    public Message selectNoDelete(Integer messageId){
         Example example = new Example(Message.class);
         example.createCriteria().andEqualTo("id", messageId).andEqualTo("isDeleted","0");
         return messageMapper.selectByExample(example).get(0);

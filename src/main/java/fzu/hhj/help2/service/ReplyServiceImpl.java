@@ -8,7 +8,6 @@ import fzu.hhj.help2.pojo.Task;
 import fzu.hhj.help2.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -63,7 +62,7 @@ public class ReplyServiceImpl implements ReplyService {
             result.put(JSON_RETURN_CODE_NAME, NO_USER);
             return result;
         }
-        Reply reply = replyDAO.selectById(replyId);
+        Reply reply = replyDAO.selectNoDelete(replyId);
         if(reply == null ){
             result.put(JSON_RETURN_CODE_NAME, NOT_EXIST_REPLY);
             return result;
@@ -88,7 +87,7 @@ public class ReplyServiceImpl implements ReplyService {
             result.put(JSON_RETURN_CODE_NAME, NO_USER);
             return result;
         }
-        Reply reply = replyDAO.selectById(replyId);
+        Reply reply = replyDAO.selectNoDelete(replyId);
         if(reply == null ){
             result.put(JSON_RETURN_CODE_NAME, NOT_EXIST_REPLY);
             return result;

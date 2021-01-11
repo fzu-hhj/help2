@@ -95,8 +95,6 @@ public class UserDAO {
     }
 
     public List<User> selectAllNoDelete(){
-        Example example =new Example(User.class);
-        example.createCriteria().andEqualTo("isDeleted", "0");
-        return userMapper.selectByExample(example);
+        return userMapper.selectAll();
     }
 }

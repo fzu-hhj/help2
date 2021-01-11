@@ -20,7 +20,7 @@ public class ReportDAO {
     public List<Report> selectAllNoHandle(){
         Example example = new Example(Report.class);
         example.createCriteria().andEqualTo("isHandled", "0");
-        example.setOrderByClause("time DESC");
+        example.setOrderByClause("reportedCategory ASC ,reportedId ASC");
         return reportMapper.selectByExample(example);
     }
 

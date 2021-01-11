@@ -9,7 +9,6 @@ import fzu.hhj.help2.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.*;
 
 import static fzu.hhj.help2.Util.ConstantUtil.*;
@@ -48,7 +47,7 @@ public class MessageServiceImpl implements MessageService {
             result.put(JSON_RETURN_CODE_NAME, NO_USER);
             return result;
         }
-        Message message = messageDAO.selectMessageById(messageId);
+        Message message = messageDAO.selectNoDelete(messageId);
         Map<String, Object> messageInf = new HashMap<>(MIN_HASH_MAP_NUM);
         messageInf.put("id", message.getId());
         messageInf.put("category", message.getCategory());
@@ -72,7 +71,7 @@ public class MessageServiceImpl implements MessageService {
             result.put(JSON_RETURN_CODE_NAME, NO_USER);
             return result;
         }
-        Message message = messageDAO.selectMessageById(messageId);
+        Message message = messageDAO.selectNoDelete(messageId);
         if(message == null){
             result.put(JSON_RETURN_CODE_NAME, NO_CONTENT);
             return result;

@@ -36,7 +36,7 @@ public class AdminController {
         return adminService.getReportInf(reportId);
     }
 
-    @RequestMapping("/handleReportUser")
+    @RequestMapping("/handleReport")
     public Map<String, Object> handleReport(@RequestParam Integer reportId, @RequestParam Integer isSuspend,
                                             @RequestParam(required = false) Integer suspendTime){
         return adminService.handleReport(reportId, isSuspend, suspendTime);
