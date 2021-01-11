@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.List;
+
 @Repository("userDAO")
 public class UserDAO {
     @Autowired
@@ -90,5 +92,11 @@ public class UserDAO {
 
     public void update(User user){
         userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    public List<User> selectAllNoDelete(){
+        Example example =new Example(User.class);
+        example.createCriteria().andEqualTo("isDeleted", "0");
+        return userMapper.selectByExample(example);
     }
 }

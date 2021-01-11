@@ -158,6 +158,8 @@ public class ConstantUtil {
     public static final String REPORT_TO_REPLY = "toReply";
     public static final String REPORT_TO_MESSAGE = "toMessage";
 
+    //Admin
+    public static final int ERROR_LOGIN_INF = 2;
     //JsonUtil
     public final static int IS_NOT_JSON_ARRAY = 1;
 }

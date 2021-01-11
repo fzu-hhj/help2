@@ -25,7 +25,6 @@ public class MessageUtil {
      */
     public void newMessage(Integer category, User user, String content){
         Message message = new Message();
-        message.setIsRead("0");
         message.setContent(content);
         message.setTime(new Date());
         message.setReceiverId(user.getId());

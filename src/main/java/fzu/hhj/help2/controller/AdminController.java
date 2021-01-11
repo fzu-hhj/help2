@@ -2,24 +2,28 @@ package fzu.hhj.help2.controller;
 
 import fzu.hhj.help2.mapper.AdminMapper;
 import fzu.hhj.help2.pojo.Admin;
+import fzu.hhj.help2.service.AdminService;
+import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("admin")
 public class AdminController {
     @Autowired
-    AdminMapper adminMapper;
+    AdminService adminService;
 
-    @RequestMapping("/admin/{id}")
-    public Admin getAdmin2(@PathVariable("id") Integer id){
-        return adminMapper.selectByPrimaryKey(id);
+    @RequestMapping("/login")
+    public Map<String, Object> login(@RequestParam String account, @RequestParam String password){
+        return adminService.login(account, password);
+    }
 
+    @RequestMapping("/noticeUsers")
+    public Map<String, Object> noticeUsers(String content){
+        return null;
     }
 
 
