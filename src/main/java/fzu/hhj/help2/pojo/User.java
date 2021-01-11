@@ -2,6 +2,7 @@ package fzu.hhj.help2.pojo;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "user")
@@ -46,7 +47,7 @@ public class User {
     private String isSuspend;
 
     @Column(name = "suspend_time")
-    private LocalDateTime suspendTime;
+    private Date suspendTime;
 
     @Column(name = "exp")
     private Integer exp;
@@ -160,11 +161,11 @@ public class User {
     }
 
 
-    public LocalDateTime getSuspendTime() {
+    public Date getSuspendTime() {
         return suspendTime;
     }
 
-    public void setSuspendTime(LocalDateTime suspendTime) {
+    public void setSuspendTime(Date suspendTime) {
         this.suspendTime = suspendTime;
     }
 

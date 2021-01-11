@@ -17,4 +17,8 @@ public class ReportReasonDAO {
         return reportReasonMapper.selectAll();
     }
 
+    public String getReasonContertById(Integer reasonId){
+        return reportReasonMapper.selectByPrimaryKey(reasonId).getContent();
+    }
+
 }

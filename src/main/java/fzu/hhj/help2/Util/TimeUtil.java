@@ -66,4 +66,22 @@ public class TimeUtil {
         }
         return sDate;
     }
+
+    /**
+     * 增加时间
+     * @param m 现在的封禁时间
+     * @param time 要增加的时间“1”表示24h，“7”表示7d，“30”表示30d，“-1”表示永久
+     * @return 结果
+     */
+    public static Date addTime(Date m, Integer time){
+        long ms = m.getTime();
+        if(time > 0){
+            ms += MILLIS_PER_DAY*time*1000;
+        }
+        else {
+            ms += MILLIS_PER_YEAR*100*1000;
+        }
+        m.setTime(ms);
+        return m;
+    }
 }

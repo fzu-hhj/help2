@@ -157,6 +157,7 @@ public class ConstantUtil {
     public static final String REPORT_TO_TASK = "toTask";
     public static final String REPORT_TO_REPLY = "toReply";
     public static final String REPORT_TO_MESSAGE = "toMessage";
+    public static final int MISS_SUSPEND_TIME = 3;
 
     //Admin
     public static final int ERROR_LOGIN_INF = 2;

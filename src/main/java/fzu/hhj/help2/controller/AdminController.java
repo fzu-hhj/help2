@@ -23,8 +23,23 @@ public class AdminController {
 
     @RequestMapping("/noticeUsers")
     public Map<String, Object> noticeUsers(String content){
-        return null;
+        return adminService.noticeUsers(content);
     }
 
+    @RequestMapping("/listReports")
+    public Map<String, Object> listReports(){
+        return adminService.listReports();
+    }
+
+    @RequestMapping("/getReportInf")
+    public Map<String, Object> getReportInf(@RequestParam Integer reportId){
+        return adminService.getReportInf(reportId);
+    }
+
+    @RequestMapping("/handleReportUser")
+    public Map<String, Object> handleReport(@RequestParam Integer reportId, @RequestParam Integer isSuspend,
+                                            @RequestParam(required = false) Integer suspendTime){
+        return adminService.handleReport(reportId, isSuspend, suspendTime);
+    }
 
 }
