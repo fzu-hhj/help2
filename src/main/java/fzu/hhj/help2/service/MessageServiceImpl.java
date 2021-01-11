@@ -48,7 +48,6 @@ public class MessageServiceImpl implements MessageService {
             result.put(JSON_RETURN_CODE_NAME, NO_USER);
             return result;
         }
-        result.put(JSON_RETURN_CODE_NAME, SUCCESS);
         Message message = messageDAO.selectMessageById(messageId);
         Map<String, Object> messageInf = new HashMap<>(MIN_HASH_MAP_NUM);
         messageInf.put("id", message.getId());
@@ -60,6 +59,27 @@ public class MessageServiceImpl implements MessageService {
         }
         messageInf.put("time", TimeUtil.getTime(message.getTime()));
         result.put("message", messageInf);
+        result.put(JSON_RETURN_CODE_NAME, SUCCESS);
+        return result;
+    }
+
+
+    @Override
+    public Map<String, Object> readMessage(Integer messageId) {
+        Map<String, Object> result = new HashMap<>(MIN_HASH_MAP_NUM);
+        User user = (User) ServletUtil.getRequest().getSession().getAttribute("user");
+        if(user == null){
+            result.put(JSON_RETURN_CODE_NAME, NO_USER);
+            return result;
+        }
+        Message message = messageDAO.selectMessageById(messageId);
+        if(message == null){
+            result.put(JSON_RETURN_CODE_NAME, NO_CONTENT);
+            return result;
+        }
+        message.setIsRead("1");
+        messageDAO.update(message);
+        result.put(JSON_RETURN_CODE_NAME, SUCCESS);
         return result;
     }
 

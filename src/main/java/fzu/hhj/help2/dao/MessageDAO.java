@@ -47,4 +47,8 @@ public class MessageDAO {
         example.createCriteria().andEqualTo("id", messageId).andEqualTo("isDeleted","0");
         return messageMapper.selectByExample(example).get(0);
     }
+
+    public void update(Message message){
+        messageMapper.updateByPrimaryKeySelective(message);
+    }
 }

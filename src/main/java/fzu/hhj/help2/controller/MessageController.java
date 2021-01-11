@@ -24,6 +24,11 @@ public class MessageController {
         return messageService.getMessage(messageId);
     }
 
+    @RequestMapping("/readMessage")
+    public  Map<String, Object> readMessage(@RequestParam Integer messageId){
+        return messageService.readMessage(messageId);
+    }
+
     @RequestMapping("/listMessages")
     public Map<String, Object> listMessages(){
         return messageService.listMessages();

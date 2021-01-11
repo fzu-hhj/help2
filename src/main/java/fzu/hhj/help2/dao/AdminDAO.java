@@ -3,8 +3,10 @@ package fzu.hhj.help2.dao;
 import fzu.hhj.help2.mapper.AdminMapper;
 import fzu.hhj.help2.pojo.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.entity.Example;
 
+@Repository("adminDAO")
 public class AdminDAO {
     @Autowired
     AdminMapper adminMapper;
