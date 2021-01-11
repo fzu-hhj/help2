@@ -2,6 +2,7 @@ package fzu.hhj.help2.pojo;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "report")
@@ -25,13 +26,13 @@ public class Report {
     private String content;
 
     @Column(name = "time")
-    private LocalDateTime time;
+    private Date time;
 
     @Column(name = "reported_id")
     private Integer reportedId;
 
     @Column(name = "reported_category")
-    private Integer reportedCategory;
+    private String reportedCategory;
 
 
     public Integer getId() {
@@ -79,11 +80,11 @@ public class Report {
     }
 
 
-    public LocalDateTime getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
@@ -97,11 +98,11 @@ public class Report {
     }
 
 
-    public Integer getReportedCategory() {
+    public String getReportedCategory() {
         return reportedCategory;
     }
 
-    public void setReportedCategory(Integer reportedCategory) {
+    public void setReportedCategory(String reportedCategory) {
         this.reportedCategory = reportedCategory;
     }
 

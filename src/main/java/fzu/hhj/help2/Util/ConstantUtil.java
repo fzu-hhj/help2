@@ -151,6 +151,13 @@ public class ConstantUtil {
     //Task
     public static final int NO_PERMISSION = 5;
 
+    //Report
+    public static final int NO_CONTENT = 2;
+    public static final String REPORT_TO_USER = "toUser";
+    public static final String REPORT_TO_TASK = "toTask";
+    public static final String REPORT_TO_REPLY = "toReply";
+    public static final String REPORT_TO_MESSAGE = "toMessage";
+
     //JsonUtil
     public final static int IS_NOT_JSON_ARRAY = 1;
 }
