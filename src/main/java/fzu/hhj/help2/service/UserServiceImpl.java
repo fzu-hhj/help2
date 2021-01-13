@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
         user.setExp(1);
         //初始性别为保密
         user.setGender("未知");
-        user.setHead("head1.jpg");
+        user.setHead("head/head1.jpg");
 //        user.setReportedTimes(0);
         userDAO.insert(user);
 

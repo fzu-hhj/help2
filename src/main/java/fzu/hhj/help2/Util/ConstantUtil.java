@@ -33,8 +33,6 @@ public class ConstantUtil {
     public final static String JSON_RETURN_CODE_NAME = "resultCode";
     public final static String SESSION_USER = "user";
     public final static String RETURN_STRING = "success";
-    public final static String ANONYMOUS_USER_AVATAR = "0.jpg";
-    public final static String ANONYMOUS_USER_NAME = "匿名用户";
 
     public final static Integer HASH_MAP_NUM = 20;
     public final static int MIN_HASH_MAP_NUM = 10;
@@ -75,19 +73,8 @@ public class ConstantUtil {
     public final static int RESPONSE_NUM = 20;
     public final static int PARTITION_QUESTION_COUNT = 20;
 
-    //Question
-    public static final int MISS_TASK_INF = 2;
-    public static final int QUESTION_SHOW_ANSWER_NUM = 10;
-    public final static int MISS_QUESTION_INF = 2;
-    public final static int ANSWER_DEFAULT_SORT = 0;
-    public final static int USER_IS_NOT_QUESTION_ONWER_DELETE_FAULT = 2;
-    public final static int SHOW_ANSWERS_NUM = 20;
 
-    //Record
-    public final static int UN_LOGIN_TWO = 2;
 
-    //Reply
-    public final static int NO_REPLYER = 2;
 
     //User
     public final static String EMAIL = "email";
@@ -103,19 +90,7 @@ public class ConstantUtil {
     public final static int LOGIN_NO_ELIGIBLE_USER = 3;
     public final static int LOGIN_WRONG_PASSWORD = 1;
     public final static String LOGIN_USER_SESSION_NAME = "user";
-    public final static String RESET_PASSWORD_VERIFY_CODE_SESSION_NAME = "resetPasswordVerifyCode";
-    public final static String RESET_PASSWORD_VERIFY_STATE_SESSION_NAME = "resetPasswordVerifyState";
-    public final static String REBIND_EMAIL_VERIFY_CODE_SESSION_NAME = "rebindEmailVerifyCode";
-    public final static String REBIND_EMAIL_VERIFY_STATE_SESSION_NAME = "rebindEmailVerifyState";
-    public final static String NEW_EMAIL_SESSION_NAME = "newEmail";
-    public final static String NEW_EMAIL_VERIFY_CODE_SESSION_NAME = "newEmailVerifyCode";
-    public final static String NEW_EMAIL_VERIFY_STATE_SESSION_NAME = "newEmailVerifyState";
-    public final static String SESSION_NAME = "";
-    public final static int RESET_PASSWORD_FAIL = 1;
-    public final static int VERIFY_DEFAULT = 1;
-    public final static int SUCCESS_LOGON = 0;
     public final static int NO_USER = 1;
-    public final static int WRONG_PASSWORD = 1;
 
     //IdentityAction
     //认证失败
@@ -150,6 +125,7 @@ public class ConstantUtil {
 
     //Task
     public static final int NO_PERMISSION = 5;
+    public static final int MISS_TASK_INF = 2;
 
     //Report
     public static final int NO_CONTENT = 2;
